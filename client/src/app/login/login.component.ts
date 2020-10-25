@@ -8,7 +8,7 @@ import {UtilisateurService} from "../utilisateur.service";
   styleUrls: ['./login.component.css']
 })
 export class LoginComponent implements OnInit {
-  enseignants: Enseignant[];
+  enseignants: Object;
 
   constructor(private utilisateurService: UtilisateurService) { }
 
@@ -18,7 +18,7 @@ export class LoginComponent implements OnInit {
 
   getEnseignants(): void {
     this.utilisateurService.getAllEnseignant()
-      .subscribe(e => this.enseignants.push());
+      .subscribe(e => this.enseignants = e);
   }
 
 }

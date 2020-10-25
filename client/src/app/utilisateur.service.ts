@@ -17,7 +17,7 @@ export class UtilisateurService {
 
   getAllEnseignant() {
     return this.http.get(
-      environment.nodeApiUrl + "/api/etudiants"
+      environment.nodeApiUrl + "/api/enseignants"
     );
   }
 }
