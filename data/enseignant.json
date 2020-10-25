@@ -1,0 +1,68 @@
+[
+  {
+    "nom": "BOURLIER",
+    "prenom": "Sylvie",
+    "mail": "sylvie.bourlier@univ-evry.fr",
+    "password": "sb"
+  },
+  {
+    "nom": "BOURSE",
+    "prenom": "Sophie",
+    "mail": "sophie.bourse@univ-evry.fr",
+    "password": "sb"
+  },
+  {
+    "nom": "BREDA",
+    "prenom": "Laurent",
+    "mail": "laurent.breda@univ-evry.fr",
+    "password": "lb"
+  },
+  {
+    "nom": "COURTAUD",
+    "prenom": "Didier",
+    "mail": "didier.courtaud@univ-evry.fr",
+    "password": "dc"
+  },
+  {
+    "nom": "DECLERCQ",
+    "prenom": "Philippe",
+    "mail": "philippe.declercq@univ-evry.fr",
+    "password": "pd"
+  },
+  {
+    "nom": "ELGHOUL",
+    "prenom": "Mansour",
+    "mail": "mansour.elghoul@univ-evry.fr",
+    "password": "me"
+  },
+  {
+    "nom": "HACZAR",
+    "prenom": "Blaise",
+    "mail": "blaise.hanczar@univ-evry.fr",
+    "password": "bh"
+  },
+  {
+    "nom": "JANODET",
+    "prenom": "Jean Christophe",
+    "mail": "jean-christophe.janodet@ibisc.univ-evry.fr",
+    "password": "jj"
+  },
+  {
+    "nom": "LEDOUX",
+    "prenom": "Franck",
+    "mail": "franck.ledoux@univ-evry.fr",
+    "password": "fl"
+  },
+  {
+    "nom": "PLOIX",
+    "prenom": "Damien",
+    "mail": "damien.ploix@etud-univ.fr",
+    "password": "dp"
+  },
+  {
+    "nom": "ZEHRAOUI",
+    "prenom": "Farida",
+    "mail": "farida.zehraoui@univ-evry.fr",
+    "password": "fz"
+  }
+]
