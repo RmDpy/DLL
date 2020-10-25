@@ -9,7 +9,7 @@ const url = 'mongodb://127.0.0.1:27017';
 const dbName = 'dll';
 let db;
 MongoClient.connect(url, function(err, client) {
-    console.log("Connected successfully to server");
+    console.log("Connexion mongo ok");
     db = client.db(dbName);
 });
 
@@ -38,5 +38,5 @@ app.get('/api/etudiants', (req, res) => {
 
 
 app.listen(3000, () => {
-    console.log("Serveur à l'écoute sur 3000")
+    console.log("Serveur à l'écoute 3000")
 });
