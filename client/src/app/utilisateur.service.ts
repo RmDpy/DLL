@@ -20,4 +20,5 @@ export class UtilisateurService {
       environment.nodeApiUrl + "/api/enseignants"
     );
   }
+
 }

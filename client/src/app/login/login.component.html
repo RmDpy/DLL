@@ -1,7 +1,13 @@
-<p>Login lol</p>
-
-<a *ngFor="let enseignant of enseignants" class="col-1-4">
-  <div class="module hero">
-    <h4>{{enseignant.mail}}</h4>
+<form>
+  <div class="form-group">
+    <label>Adresse Mail</label>
+    <input type="text" class="form-control" [ngModelOptions]="{standalone: true}"
+           [(ngModel)]="enseignant.mail">
   </div>
-</a>
+  <div class="form-group">
+    <label>Password</label>
+    <input type="password" class="form-control" [ngModelOptions]="{standalone: true}"
+           [(ngModel)]="enseignant.password">
+  </div>
+  <button type="submit" (click)="submit()" class="btn btn-primary">Submit</button>
+</form>

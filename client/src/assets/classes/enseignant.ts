@@ -1,5 +1,5 @@
 export interface Enseignant {
-  id: number;
+  id?: number;
   nom: string;
   prenom: string;
   mail: string;

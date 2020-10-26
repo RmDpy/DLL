@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import {Enseignant} from "../../assets/classes/enseignant";
+import { Enseignant } from "../../assets/classes/enseignant";
 import {UtilisateurService} from "../utilisateur.service";
 
 @Component({
@@ -8,17 +8,40 @@ import {UtilisateurService} from "../utilisateur.service";
   styleUrls: ['./login.component.css']
 })
 export class LoginComponent implements OnInit {
-  enseignants: Object;
+  enseignantsList$: Enseignant[] = [];
+  enseignant: Enseignant;
 
   constructor(private utilisateurService: UtilisateurService) { }
 
   ngOnInit(): void {
+
     this.getEnseignants();
+    this.enseignant = {
+      nom: '',
+      prenom: '',
+      mail: '',
+      password: '',
+    }
   }
 
   getEnseignants(): void {
     this.utilisateurService.getAllEnseignant()
-      .subscribe(e => this.enseignants = e);
+      .subscribe((e: Enseignant[]) => {
+        this.enseignantsList$ = e;
+        //this.enseignants = [ ...e] pour paginer
+      },
+        error => {
+        console.log(error)
+        });
   }
 
+  getEnseignantMail(email: string) {
+    this
+  }
+
+
+
+  submit() {
+    console.log(this.enseignant);
+  }
 }
