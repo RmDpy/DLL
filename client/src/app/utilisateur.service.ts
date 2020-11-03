@@ -21,4 +21,16 @@ export class UtilisateurService {
     );
   }
 
+  getPassword(mdp : string) {
+    return this.http.get(
+      environment.nodeApiUrl + "/api/enseignants/:" + mdp
+    );
+  }
+
+  getMail(email : string) {
+    return this.http.get(
+      environment.nodeApiUrl + "/api/enseignants/:" + email
+    );
+  }
+
 }

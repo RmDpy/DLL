@@ -34,7 +34,25 @@ app.get('/api/etudiants', (req, res) => {
         });
 });
 
+app.get('/api/password/:password', (req, res) => {
+    const password = req.params.password;
+    db.collection('enseignants').findOne({password})
+        .then(docs => res.status(200).json(docs))
+        .catch(err => {
+            console.log(err);
+            throw err;
+        });
+});
 
+app.get('/api/email/:mail', (req, res) => {
+    const mail = req.params.mail;
+    db.collection('enseignants').findOne({mail})
+        .then(docs => res.status(200).json(docs))
+        .catch(err => {
+            console.log(err);
+            throw err;
+        })
+});
 
 
 app.listen(3000, () => {
