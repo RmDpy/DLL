@@ -8,12 +8,8 @@ import { Etudiant } from "../assets/classes/etudiant";
   providedIn: 'root'
 })
 export class UtilisateurService {
-  activedb: string = "mongo";
   constructor(private http: HttpClient) { }
 
-  public setActivedb(db: string) {
-    this.activedb = db;
-  }
 
   getAllEnseignant() {
     return this.http.get(
@@ -21,16 +17,6 @@ export class UtilisateurService {
     );
   }
 
-  getPassword(mdp : string) {
-    return this.http.get(
-      environment.nodeApiUrl + "/api/enseignants/:" + mdp
-    );
-  }
 
-  getMail(email : string) {
-    return this.http.get(
-      environment.nodeApiUrl + "/api/enseignants/:" + email
-    );
-  }
 
 }

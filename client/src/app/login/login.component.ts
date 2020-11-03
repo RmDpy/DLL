@@ -35,15 +35,8 @@ export class LoginComponent implements OnInit {
         });
   }
 
-  login(email : string, mdp : string) {
-    console.log(this.utilisateurService.getPassword(mdp));
-  }
-
-
-
-
 
   submit() {
-    console.log(this.enseignant);
+    console.log(this.enseignant.mail);
   }
 }

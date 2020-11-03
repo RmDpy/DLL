@@ -1,28 +1,25 @@
 const express = require("express");
+const bodyParser = require('body-parser');
+const jwt = require('jsonwebtoken');
+const expressJWT = require('express-jwt');
+const mongoose = require('mongoose');
+
 const app = express();
+app.use(bodyParser.json());
 
-const enseignants = require('../data/enseignant.json');
-const etudiants = require('../data/etudiant.json');
+mongoose
+    .connect('mongodb://127.0.0.1:27017/dll', {
+        useNewUrlParser: true,
+        useUnifiedTopology: true
+    })
+    .then(() => console.log('Connexion à mongo réussi'))
+    .catch(() => console.log ('Echec de la connexion à mongo'));
 
-const MongoClient = require('mongodb').MongoClient;
-const url = 'mongodb://127.0.0.1:27017';
-const dbName = 'dll';
-let db;
-MongoClient.connect(url, function(err, client) {
-    console.log("Connexion mongo ok");
-    db = client.db(dbName);
-});
+let db = mongoose.connection;
 
 
-app.use(express.json())
-
-app.get('/api/enseignants', (req,res) => {
-    db.collection('enseignants').find({}).toArray()
-        .then(docs => res.status(200).json(docs))
-        .catch(err => {
-            console.log(err);
-            throw err;
-        });
+app.get('/api', (req, res) => {
+    res.json("Vous êtes bien sur l'API");
 });
 
 app.get('/api/etudiants', (req, res) => {
@@ -54,6 +51,39 @@ app.get('/api/email/:mail', (req, res) => {
         })
 });
 
+app.post('/api/login', (req, res) => {
+    const email = req.body.email;
+    const mdp = req.body.mdp;
+    let user = {};
+    db.collection('enseignants').findOne({mail: email, password: mdp})
+        .then(docs => res.status(200).json(docs))
+        .catch(err => {
+            console.log(err);
+            throw err;
+        })
+});
+
+
+// Verify Token
+function verifyToken(req, res, next) {
+    // Get auth header value
+    const bearerHeader = req.headers['authorization'];
+    // Check if bearer is undefined
+    if(typeof bearerHeader !== 'undefined') {
+        // Split at the space
+        const bearer = bearerHeader.split(' ');
+        // Get token from array
+        const bearerToken = bearer[1];
+        // Set the token
+        req.token = bearerToken;
+        // Next middleware
+        next();
+    } else {
+        // Forbidden
+        res.sendStatus(403);
+    }
+
+}
 
 app.listen(3000, () => {
     console.log("Serveur à l'écoute 3000")

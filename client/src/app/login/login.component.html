@@ -9,5 +9,5 @@
     <input type="password" class="form-control" [ngModelOptions]="{standalone: true}"
            [(ngModel)]="enseignant.password">
   </div>
-  <button type="submit" (click)="login('',enseignant.password)" class="btn btn-primary">Submit</button>
+  <button type="submit" (click)="submit()" class="btn btn-primary">Submit</button>
 </form>
