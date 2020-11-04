@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from "@angular/common/http";
 import { environment } from "../environments/environment";
+import { AuthenticationService} from "./authentication.service";
 import { Enseignant} from "../assets/classes/enseignant";
 import { Etudiant } from "../assets/classes/etudiant";
 
@@ -8,7 +9,8 @@ import { Etudiant } from "../assets/classes/etudiant";
   providedIn: 'root'
 })
 export class UtilisateurService {
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient,
+              private authenticationService : AuthenticationService) { }
 
 
   getAllEnseignant() {

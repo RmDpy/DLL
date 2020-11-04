@@ -54,13 +54,46 @@ app.get('/api/email/:mail', (req, res) => {
 app.post('/api/login', (req, res) => {
     const email = req.body.email;
     const mdp = req.body.mdp;
-    let user = {};
+    console.log('login api');
     db.collection('enseignants').findOne({mail: email, password: mdp})
-        .then(docs => res.status(200).json(docs))
+        .then(docs => {
+            console.log(docs);
+            if(docs != null){
+                jwt.sign({docs}, 'ninja', {expiresIn: '600s'}, (err, token) => {
+                    res.json({token});
+                })
+            }
+        })
         .catch(err => {
             console.log(err);
             throw err;
         })
+});
+
+app.post('/api/posts', verifyToken, (req, res) => {
+    jwt.verify(req.token, 'ninja', (err, authData) => {
+        if(err) {
+            res.sendStatus(403);
+        }else {
+            res.json({
+                message: 'post created...',
+                authData
+            })
+        }
+    })
+});
+
+app.get('/api/enseignants', verifyToken, (req, res) => {
+    jwt.verify(req.token, 'ninja', (err, authData) => {
+        if(err) {
+            res.sendStatus(403);
+        }else {
+            res.json({
+                message: 'get okay...',
+                authData
+            })
+        }
+    })
 });
 
 
