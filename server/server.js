@@ -87,6 +87,7 @@ app.get('/api/enseignants', verifyToken, (req, res) => {
     jwt.verify(req.token, 'ninja', (err, authData) => {
         if(err) {
             res.sendStatus(403);
+            console.log('not authorized');
         }else {
             res.json({
                 message: 'get okay...',
