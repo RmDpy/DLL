@@ -59,10 +59,8 @@ app.get('/api/compteUser', verifyToken, (req, res) => {
 app.post('/api/login', (req, res) => {
     const email = req.body.email;
     const mdp = req.body.mdp;
-    console.log('login api');
     db.collection('enseignants').findOne({mail: email, password: mdp})
         .then(docs => {
-            console.log(docs);
             if(docs != null){
                 jwt.sign({docs}, 'ninja', {expiresIn: '600s'}, (err, token) => {
                     res.json({token});
