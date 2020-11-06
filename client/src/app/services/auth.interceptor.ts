@@ -8,7 +8,6 @@ export class AuthInterceptor implements HttpInterceptor {
 
   constructor(private authenticationService: AuthenticationService) {
   }
-
   intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
     let token = this.authenticationService.currentUserValue;
     let newRequest = req;
