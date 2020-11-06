@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { Enseignant } from "../../assets/classes/enseignant";
-import {UtilisateurService} from "../utilisateur.service";
-import { AuthenticationService } from "../authentication.service";
+import { Enseignant } from "../../assets/models/enseignant";
+import {UtilisateurService} from "../services/utilisateur.service";
+import { AuthenticationService } from "../services/authentication.service";
 
 @Component({
   selector: 'app-login',
@@ -9,7 +9,6 @@ import { AuthenticationService } from "../authentication.service";
   styleUrls: ['./login.component.css']
 })
 export class LoginComponent implements OnInit {
-  enseignantsList$: Enseignant[] = [];
   enseignant: Enseignant;
 
   constructor(private utilisateurService: UtilisateurService,
@@ -18,8 +17,6 @@ export class LoginComponent implements OnInit {
   }
 
   ngOnInit(): void {
-
-    //this.getEnseignants();
     this.enseignant = {
       nom: '',
       prenom: '',
@@ -28,23 +25,7 @@ export class LoginComponent implements OnInit {
     }
   }
 
-  /*getEnseignants(): void {
-    this.utilisateurService.getAllEnseignant()
-      .subscribe((e: Enseignant[]) => {
-        this.enseignantsList$ = e;
-        //this.enseignants = [ ...e] pour paginer
-      },
-        error => {
-        console.log(error)
-        });
-  }*/
-
-
   submit() {
     this.authenticationService.login(this.enseignant.mail, this.enseignant.password);
-  }
-
-  testGet() {
-    console.log(this.utilisateurService.getAllEnseignant());
   }
 }

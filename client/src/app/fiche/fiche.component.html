@@ -1,0 +1,11 @@
+<p>fiche works!</p>
+
+<button (click)="logOut()" class="btn btn-primary">Se deconnecter</button>
+<button (click)="getInfoCompte()" class="btn btn-primary">Voir info compte</button>
+<br/>
+<br/>
+<br/>
+
+<ul class="list-group">
+  <li *ngFor="let etud of etudiantsList$" class="list-group-item">{{etud.prenom}} + {{etud.nom}}</li>
+</ul>
