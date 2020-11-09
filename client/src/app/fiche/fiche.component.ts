@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { UtilisateurService } from "../services/utilisateur.service";
-import {Etudiant} from "../../assets/models/etudiant";
+import { Etudiant } from "../../assets/models/etudiant";
 import { AuthenticationService } from "../services/authentication.service";
 
 @Component({
@@ -10,12 +10,10 @@ import { AuthenticationService } from "../services/authentication.service";
 })
 export class FicheComponent implements OnInit {
   etudiantsList$: Etudiant[] = [];
+  headers = ["Prenom", "Nom"];
   etudiants: Etudiant;
 
-  constructor(private utilisateurService: UtilisateurService,
-              private authenticationService: AuthenticationService) {
-
-  }
+  constructor(private utilisateurService: UtilisateurService, private authenticationService: AuthenticationService) { }
 
   ngOnInit(): void {
     this.getEtudiants();

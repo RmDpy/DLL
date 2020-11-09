@@ -1,13 +1,19 @@
-<form>
-  <div class="form-group">
-    <label>Adresse Mail</label>
-    <input type="text" class="form-control" [ngModelOptions]="{standalone: true}"
-           [(ngModel)]="enseignant.mail">
+<div class="form-container">
+  <div class="form-body">
+    <h2 class="title">AUTHENTIFICATION</h2>
+    <div class="social-login">
+      <ul>
+        <li class="telecom"><a>Paris Telecom</a></li>
+        <li class="psud"><a>Paris Sud</a></li>
+      </ul>
+    </div><!-- SOCIAL LOGIN -->
+    <div class="_or">Ou rentrez vos identifiants UEVE :</div>
+    <form class="the-form">
+        <label for="email">Adresse Mail</label>
+        <input type="email" id="email" placeholder="E-mail universitaire..." class="form-control" [ngModelOptions]="{standalone: true}" [(ngModel)]="enseignant.mail">
+        <label>Mot de Passe</label>
+        <input type="password" id="password" placeholder="Votre mot de passe..." class="form-control" [ngModelOptions]="{standalone: true}" [(ngModel)]="enseignant.password">
+      <input type="submit" (click)="submit()" value="VALIDER">
+    </form>
   </div>
-  <div class="form-group">
-    <label>Password</label>
-    <input type="password" class="form-control" [ngModelOptions]="{standalone: true}"
-           [(ngModel)]="enseignant.password">
-  </div>
-  <button type="submit" (click)="submit()" class="btn btn-primary">Submit</button>
-</form>
+</div>

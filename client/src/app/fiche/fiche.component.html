@@ -1,10 +1,22 @@
-<p>fiche works!</p>
-
-<button (click)="logOut()" class="btn btn-primary">Se deconnecter</button>
-<br/>
-<br/>
-<br/>
-
-<ul class="list-group">
-  <li *ngFor="let etud of etudiantsList$" class="list-group-item">{{etud.prenom}} + {{etud.nom}}</li>
-</ul>
+<div class="fiche-container">
+	<div class="fiche-body">
+		<h2 class="title">FICHE DE PRESENCE</h2>
+		<table table class="pres_table">
+		    <thead>
+		        <tr>
+		            <th>PRENOM</th>
+		            <th>NOM</th>
+		        </tr>
+		    </thead>
+		    <tbody>
+		        <tr *ngFor="let etud of etudiantsList$">
+		            <td>{{etud.prenom}}</td>
+		            <td>{{etud.nom}}</td>
+		        </tr>
+		    </tbody>
+		</table>
+		<form class="the-form">
+		  <input type="submit" (click)="logOut()" value="QUITTER">
+		</form>
+	</div>
+</div>
