@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Enseignant } from "../../assets/models/enseignant";
-import {UtilisateurService} from "../services/utilisateur.service";
+import { UtilisateurService } from "../services/utilisateur.service";
+import { AbstractControl, FormGroup, FormControl, Validators } from '@angular/forms';
 import { AuthenticationService } from "../services/authentication.service";
 
 @Component({
@@ -9,23 +10,26 @@ import { AuthenticationService } from "../services/authentication.service";
   styleUrls: ['./login.component.css']
 })
 export class LoginComponent implements OnInit {
-  enseignant: Enseignant;
 
-  constructor(private utilisateurService: UtilisateurService,
-              private authenticationService: AuthenticationService) {
+  loginForm: FormGroup;
 
+  constructor(private utilisateurService: UtilisateurService, private authenticationService: AuthenticationService) {
+    this.loginForm = new FormGroup({
+      email: new FormControl(null, Validators.required),
+      password: new FormControl(null, Validators.required)
+    });
   }
 
-  ngOnInit(): void {
-    this.enseignant = {
-      nom: '',
-      prenom: '',
-      mail: '',
-      password: '',
+  ngOnInit(): void { }
+
+  isValid(controlName) {
+    return this.loginForm.get(controlName).invalid && this.loginForm.get(controlName).touched;
+  }
+
+  login() {
+    console.log(this.loginForm.value);
+    if (this.loginForm.valid) {
+      this.authenticationService.login(this.loginForm.value.email, this.loginForm.value.password);
     }
-  }
-
-  submit() {
-    this.authenticationService.login(this.enseignant.mail, this.enseignant.password);
   }
 }

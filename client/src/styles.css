@@ -287,4 +287,8 @@ table.pres_table th, table.pres_table td {
     border-bottom: 2px solid #302032;
 }
 
+label span.input_error {
+	color : #ce6262;
+}
+
 

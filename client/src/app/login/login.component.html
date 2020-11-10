@@ -8,12 +8,12 @@
       </ul>
     </div><!-- SOCIAL LOGIN -->
     <div class="_or">Ou rentrez vos identifiants UEVE :</div>
-    <form class="the-form">
-        <label for="email">Adresse Mail</label>
-        <input type="email" id="email" placeholder="E-mail universitaire..." class="form-control" [ngModelOptions]="{standalone: true}" [(ngModel)]="enseignant.mail">
-        <label>Mot de Passe</label>
-        <input type="password" id="password" placeholder="Votre mot de passe..." class="form-control" [ngModelOptions]="{standalone: true}" [(ngModel)]="enseignant.password">
-      <input type="submit" (click)="submit()" value="VALIDER">
+    <form class="the-form" [formGroup]="loginForm">
+        <label for="email">Adresse Mail<span class="input_error" *ngIf="isValid('email')" > - Champ obligatoire</span></label>
+        <input type="email" formControlName="email" matInput placeholder="E-mail universitaire..." required>
+        <label>Mot de Passe<span class="input_error" *ngIf="isValid('password')" > - Champ obligatoire</span></label>
+        <input type="password" formControlName="password" matInput placeholder="Votre mot de passe..." required>
+      <input type="submit" (click)="login()" value="VALIDER">
     </form>
   </div>
 </div>

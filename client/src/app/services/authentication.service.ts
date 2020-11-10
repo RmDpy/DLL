@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from "@angular/common/http";
 import { BehaviorSubject, Observable} from "rxjs";
-import {environment} from "../../environments/environment";
-import {JwtHelperService} from "@auth0/angular-jwt";
+import { environment } from "../../environments/environment";
+import { JwtHelperService } from "@auth0/angular-jwt";
 import { Router } from "@angular/router";
 
 @Injectable({
@@ -12,8 +12,7 @@ export class AuthenticationService {
   private currentUserSubject: BehaviorSubject<string>;
   private currentUser: Observable<string>;
 
-  constructor(private http: HttpClient,
-              public router: Router) {
+  constructor(private http: HttpClient, public router: Router) {
     this.currentUserSubject = new BehaviorSubject<string>(localStorage.getItem('currentUser'));
     this.currentUser = this.currentUserSubject.asObservable();
   }
