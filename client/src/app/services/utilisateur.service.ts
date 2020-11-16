@@ -14,6 +14,18 @@ export class UtilisateurService {
   }
 
 
+  getSeanceFromVT(){
+    this.http.get(
+      'http://146.59.195.214:8006/api/v1/calendar/events-by-group/m2miaa')
+      .subscribe(res => {
+        const listSeance = res;
+        return listSeance;
+      }, error => {
+        console.log(error);
+      })
+  }
+
+
   getAllEtudiants() {
     const httpOptions = {
       headers: new HttpHeaders({
@@ -26,19 +38,6 @@ export class UtilisateurService {
     );
   }
 
-  getUser() {
-    const httpOptions = {
-      headers: new HttpHeaders(({
-        'Content-Type': 'application/json',
-        'Authorization': 'Bearer ' + this.authenticationService.currentUserValue
-      }))
-    };
-    return this.http.get(
-      environment.nodeApiUrl + '/api/compteUser', httpOptions
-    ).subscribe(res => {
-      const test = "";
-    })
-  }
 }
 
 

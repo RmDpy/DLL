@@ -47,12 +47,9 @@ Architecture MEAN adaptée et fonctionelle pour une application RESTful.
 
 2) Modifier l'API pour traiter les données de VT Agenda
 	
-3) Modifier l'API pour proposer différents logins possibles
-	* UEVE, Paris Sud, Paris Telecom...similaire à E-campus
+3) Mise en place de l'export des données en format PDF
 
-4) Mise en place de l'export des données en format PDF
-
-5) Mise en place de signature numérique et des QR-Codes
+4) Mise en place de signature numérique et des QR-Codes
 
 
 

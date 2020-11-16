@@ -13,9 +13,11 @@ export class FicheComponent implements OnInit {
   headers = ["Prenom", "Nom"];
   etudiants: Etudiant;
 
-  constructor(private utilisateurService: UtilisateurService, private authenticationService: AuthenticationService) { }
+  constructor(private utilisateurService: UtilisateurService, private authenticationService: AuthenticationService) {
+  }
 
   ngOnInit(): void {
+    console.log(this.utilisateurService.getSeanceFromVT());
     this.getEtudiants();
     this.etudiants = {
       nom: '',
@@ -32,10 +34,6 @@ export class FicheComponent implements OnInit {
           console.log(error);
         }
       )
-  }
-
-  getInfoCompte() {
-    this.utilisateurService.getUser();
   }
 
   logOut() {

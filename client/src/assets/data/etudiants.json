@@ -1,118 +1,147 @@
 [
   {
-  "nom": "BOUBEKEUR",
-  "prenom": "Rabah"
+    "nom": "BOUBEKEUR",
+    "prenom": "Rabah",
+    "groupe": "m2miaa"
   },
   {
     "nom": "BOUCAUD",
-    "prenom": "Jayson"
+    "prenom": "Jayson",
+    "groupe": "m2miaa"
   },
   {
     "nom": "BOUDA",
-    "prenom": "Azzedine"
+    "prenom": "Azzedine",
+    "groupe": "m2miaa"
   },
   {
     "nom": "DE BRUYNE",
-    "prenom": "Alexis"
+    "prenom": "Alexis",
+    "groupe": "m2miaa"
   },
   {
     "nom": "DESSEUX",
-    "prenom": "Valentin"
+    "prenom": "Valentin",
+    "groupe": "m2miaa"
   },
   {
     "nom": "DIARRA",
-    "prenom": "Yannis"
+    "prenom": "Yannis",
+    "groupe": "m2miaa"
   },
   {
     "nom": "DUPUY",
-    "prenom": "Remi"
+    "prenom": "Remi",
+    "groupe": "m2miaa"
   },
   {
     "nom": "FRUTEAU",
-    "prenom": "Alexandre"
+    "prenom": "Alexandre",
+    "groupe": "m2miaa"
   },
   {
     "nom": "JESIOLOWSKI",
-    "prenom": "Melvin"
+    "prenom": "Melvin",
+    "groupe": "m2miaa"
   },
   {
     "nom": "KASSY",
-    "prenom": "Anis"
+    "prenom": "Anis",
+    "groupe": "m2miaa"
   },
   {
     "nom": "LECELLIER",
-    "prenom": "Laetitia"
+    "prenom": "Laetitia",
+    "groupe": "m2miaa"
   },
   {
     "nom": "MOUHAMAD",
-    "prenom": "Faizan"
+    "prenom": "Faizan",
+    "groupe": "m2miaa"
   },
   {
     "nom": "NAIT SLIMANE",
-    "prenom": "Fares"
+    "prenom": "Fares",
+    "groupe": "m2miaa"
   },
   {
     "nom": "SATTIANARAYANANE",
-    "prenom": "Dhinesh"
+    "prenom": "Dhinesh",
+    "groupe": "m2miaa"
   },
   {
     "nom": "SEFFER",
-    "prenom": "Loic"
+    "prenom": "Loic",
+    "groupe": "m2miaa"
   },
   {
     "nom": "SMAIL",
-    "prenom": "Massinissa"
+    "prenom": "Massinissa",
+    "groupe": "m2miaa"
   },
   {
     "nom": "VANDENSCHRICK",
-    "prenom": "David"
+    "prenom": "David",
+    "groupe": "m2miaa"
   },
   {
     "nom": "AMARA",
-    "prenom": "Samir"
+    "prenom": "Samir",
+    "groupe": "m2miaa"
   },
   {
     "nom": "DIEDHOU",
-    "prenom": "Ndeye Marieme"
+    "prenom": "Ndeye Marieme",
+    "groupe": "m2miaa"
   },
   {
     "nom": "FERREIRA",
-    "prenom": "Elodie"
+    "prenom": "Elodie",
+    "groupe": "m2miaa"
   },
   {
     "nom": "LAHKIKY",
-    "prenom": "Achraf"
+    "prenom": "Achraf",
+    "groupe": "m2miaa"
   },
   {
     "nom": "MEDDOURI",
-    "prenom": "Badis"
+    "prenom": "Badis",
+    "groupe": "m2miaa"
   },
   {
     "nom": "MOUTAOUKIL",
-    "prenom": "Soukayan"
+    "prenom": "Soukayan",
+    "groupe": "m2miaa"
   },
   {
     "nom": "TIMOR",
-    "prenom": "Brahim"
+    "prenom": "Brahim",
+    "groupe": "m2miaa"
   },
   {
     "nom": "JAA",
-    "prenom": "Yassine"
+    "prenom": "Yassine",
+    "groupe": "m2miaa"
   },
   {
     "nom": "LUNDI",
-    "prenom": "Marion"
+    "prenom": "Marion",
+    "groupe": "m2miaa"
   },
   {
     "nom": "LAIOLO",
-    "prenom": "Louis"
+    "prenom": "Louis",
+    "groupe": "m2miaa"
   },
   {
     "nom": "AIT MOHAMMED",
-    "prenom": "Malha"
+    "prenom": "Malha",
+    "groupe": "m2miaa"
   },
   {
-    "mon": "HOURAGA",
-    "prenom": "Lauraine"
+    "nom": "HOURAGA",
+    "prenom": "Lauraine",
+    "groupe": "m2miaa"
   }
 ]
