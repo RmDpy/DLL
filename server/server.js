@@ -41,6 +41,21 @@ app.get('/api/getEtudiants', verifyToken, (req, res) => {
     })
 });
 
+app.get('/api/getSeance', verifyToken, (req,res) => {
+    jwt.verify(req.token, 'ninja', (err, authData) => {
+        if(err) {
+            res.sendStatus(403);
+        }else {
+            db.collection('seances').find({}).toArray()
+                .then(docs => res.status(200).json(docs))
+                .catch(err => {
+                    console.log(err);
+                    throw err;
+                })
+        }
+    })
+})
+
 app.get('/api/compteUser', verifyToken, (req, res) => {
     jwt.verify(req.token, 'ninja', (err, authData) => {
         if(err) {

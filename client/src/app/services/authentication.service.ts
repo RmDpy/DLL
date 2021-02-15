@@ -18,7 +18,7 @@ export class AuthenticationService {
   }
 
   public get currentUserValue(): String {
-    return this.currentUserSubject.value;
+    return localStorage.getItem('currentUser');
   }
 
   public isAuthenticated(): boolean {

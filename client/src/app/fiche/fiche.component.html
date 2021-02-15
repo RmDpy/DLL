@@ -6,16 +6,22 @@
 		        <tr>
 		            <th>PRENOM</th>
 		            <th>NOM</th>
+                <th>PRESENT</th>
 		        </tr>
 		    </thead>
 		    <tbody>
 		        <tr *ngFor="let etud of etudiantsList$">
 		            <td>{{etud.prenom}}</td>
 		            <td>{{etud.nom}}</td>
+                <td>
+                  <input class="form-check-input" name="{{etud.prenom}}-{{etud.nom}}" type="checkbox" value=""
+                         id="flexCheckDefault">
+                </td>
 		        </tr>
 		    </tbody>
 		</table>
 		<form class="the-form">
+      <input type="submit" value="VALIDER"> <!--ici on va récupérer le form et enregistrer la valeur du cb pour la fiche -->
 		  <input type="submit" (click)="logOut()" value="QUITTER">
 		</form>
 	</div>

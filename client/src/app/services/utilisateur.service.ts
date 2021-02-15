@@ -25,6 +25,18 @@ export class UtilisateurService {
       })
   }
 
+  getAllSeances() {
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json',
+        'Authorization': 'Bearer ' + this.authenticationService.currentUserValue
+      })
+    };
+    return this.http.get(
+      environment.nodeApiUrl + '/api/getSeance', httpOptions
+    )
+  }
+
 
   getAllEtudiants() {
     const httpOptions = {
