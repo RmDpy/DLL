@@ -10,7 +10,7 @@ app.use(bodyParser.json());
 
 //Connexion à la base de donnée
 mongoose
-    .connect('mongodb://127.0.0.1:27017/dll', {
+    .connect('mongodb+srv://admin_bdd:admin_bdd@cluster0.aqzty.mongodb.net/dll?retryWrites=true&w=majority', {
         useNewUrlParser: true,
         useUnifiedTopology: true
     })
