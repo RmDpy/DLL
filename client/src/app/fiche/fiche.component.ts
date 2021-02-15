@@ -2,7 +2,9 @@ import { Component, OnInit } from '@angular/core';
 import { UtilisateurService } from "../services/utilisateur.service";
 import { Etudiant } from "../../assets/models/etudiant";
 import { Seance } from "../../assets/models/seance";
+import { Enseignant} from "../../assets/models/enseignant";
 import { AuthenticationService } from "../services/authentication.service";
+import {observable} from "rxjs";
 
 @Component({
   selector: 'app-fiche',
@@ -15,15 +17,17 @@ export class FicheComponent implements OnInit {
   headers = ["Prenom", "Nom"];
   etudiants: Etudiant;
   seancesList$: Seance[] = [];
+  enseignantCo: Enseignant;
+
 
   constructor(private utilisateurService: UtilisateurService, private authenticationService: AuthenticationService) {
   }
 
   ngOnInit(): void {
-    console.log(this.utilisateurService.getSeanceFromVT());
-    this.getEtudiants();
+    this.getEtudiants()
     this.getSeances();
-    console.log(this.authenticationService.currentUserValue);
+    const test = this.authenticationService.getJwtDecode().
+    console.log(test);
     this.etudiants = {
       nom: '',
       prenom: '',

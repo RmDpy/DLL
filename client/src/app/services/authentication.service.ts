@@ -4,6 +4,7 @@ import { BehaviorSubject, Observable} from "rxjs";
 import { environment } from "../../environments/environment";
 import { JwtHelperService } from "@auth0/angular-jwt";
 import { Router } from "@angular/router";
+import jwtDecode, {JwtDecodeOptions} from "jwt-decode";
 
 @Injectable({
   providedIn: 'root'
@@ -18,7 +19,11 @@ export class AuthenticationService {
   }
 
   public get currentUserValue(): String {
-    return localStorage.getItem('currentUser');
+    return this.currentUserSubject.value;
+  }
+
+  public getJwtDecode() {
+    return jwtDecode(localStorage.getItem('currentUser'));
   }
 
   public isAuthenticated(): boolean {
