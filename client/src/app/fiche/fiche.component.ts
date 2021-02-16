@@ -5,6 +5,8 @@ import { Seance } from "../../assets/models/seance";
 import { Enseignant} from "../../assets/models/enseignant";
 import { AuthenticationService } from "../services/authentication.service";
 import {observable} from "rxjs";
+import DateTimeFormat = Intl.DateTimeFormat;
+import {getLocaleDateTimeFormat} from "@angular/common";
 
 @Component({
   selector: 'app-fiche',
@@ -18,6 +20,8 @@ export class FicheComponent implements OnInit {
   etudiants: Etudiant;
   seancesList$: Seance[] = [];
   enseignantCo: Enseignant;
+  seanceActuelle: Seance;
+  date = new Date();
 
 
   constructor(private utilisateurService: UtilisateurService, private authenticationService: AuthenticationService) {
@@ -25,9 +29,10 @@ export class FicheComponent implements OnInit {
 
   ngOnInit(): void {
     this.getEtudiants()
-    this.getSeances();
-    const test = this.authenticationService.getJwtDecode().
-    console.log(test);
+    const test = this.authenticationService.getJwtDecode();
+    // @ts-ignore
+    this.enseignantCo = test.docs;
+    this.getSeanceActuelle(this.enseignantCo, this.date);
     this.etudiants = {
       nom: '',
       prenom: '',
@@ -45,6 +50,43 @@ export class FicheComponent implements OnInit {
         console.log(error);
         }
       )
+  }
+
+  getSeancesByProf(prof: Enseignant) {
+    this.utilisateurService.getAllSeances()
+      .subscribe( (s: Seance[]) => {
+        s.forEach( (se: Seance) => {
+          if(se.prof == prof.nom){
+            this.seancesList$.push(se);
+          }
+        })
+      })
+  }
+  getSeanceActuelle(prof: Enseignant, date: Date){
+    this.utilisateurService.getAllSeances()
+      .subscribe( (s: Seance[]) => {
+        s.forEach( (se: Seance) => {
+          if(se.prof == prof.nom){
+            var dateDeb = new Date();
+            dateDeb.setFullYear(parseInt(se.dtStart.substr(0,4)));
+            dateDeb.setMonth(parseInt(se.dtStart.substr(5,2))-1);
+            dateDeb.setDate(parseInt(se.dtStart.substr(8,2)));
+            dateDeb.setHours(parseInt(se.dtStart.substr(11,2)));
+            dateDeb.setMinutes(parseInt(se.dtStart.substr(14,2)));
+            var dateEnd = new Date();
+            dateEnd.setFullYear(parseInt(se.dtEnd.substr(0,4)));
+            dateEnd.setMonth(parseInt(se.dtEnd.substr(5,2))-1);
+            dateEnd.setDate(parseInt(se.dtEnd.substr(8,2)));
+            dateEnd.setHours(parseInt(se.dtEnd.substr(11,2)));
+            dateEnd.setMinutes(parseInt(se.dtEnd.substr(14,2)));
+            if(dateDeb < date && date < dateEnd) {
+              this.seanceActuelle = se;
+              console.log(se);
+            }
+          }else{
+          }
+        })
+      })
   }
 
   getEtudiants(): void {
