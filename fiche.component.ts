@@ -4,14 +4,15 @@ import { Etudiant } from "../../assets/models/etudiant";
 import { Seance } from "../../assets/models/seance";
 import { Enseignant} from "../../assets/models/enseignant";
 import { AuthenticationService } from "../services/authentication.service";
-import pdfMake from 'pdfmake/build/pdfmake';
-import pdfFonts from 'pdfmake/build/vfs_fonts';
+import jspdf from "jspdf";
+import {FormsModule} from "@angular/forms";
+import * as jsPDF from "jspdf";
+import html2canvas from "html2canvas";
 
 import {observable} from "rxjs";
 import DateTimeFormat = Intl.DateTimeFormat;
 import {getLocaleDateTimeFormat} from "@angular/common";
 
-pdfMake.vfs = pdfFonts.pdfMake.vfs;
 
 @Component({
   selector: 'app-fiche',
@@ -28,8 +29,6 @@ export class FicheComponent implements OnInit {
   enseignantCo: Enseignant;
   seanceActuelle: Seance;
   date = new Date();
-
-
 
   constructor(private utilisateurService: UtilisateurService, private authenticationService: AuthenticationService) {
   }
@@ -126,7 +125,31 @@ export class FicheComponent implements OnInit {
   logOut() {
     this.authenticationService.logout();
   }
+/*
+  generatePDF() {
+    const data = document.getElementById('contentToConvert');
+    html2canvas(data).then(canvas =>{
+      let imgWidth = 208;
+      let pageHeight = 295;
+      let imgHeight = canvas.height * imgWidth / canvas.width;
+      let heightLeft = imgHeight;
 
+      const contentDataURL = canvas.toDataURL('image/png')
+      let pdf = new jspdf('p', 'mm', 'a4'); // A4 size page of PDF
+      let position = 0;
+      pdf.addImage(contentDataURL, 'PNG', 0, position, imgWidth, imgHeight)
+      pdf.save('MYPdf.pdf'); // Generated PDF
+    })
+
+
+  }
+
+*/
+
+
+
+
+/*
   generatePdf(){
     // @ts-ignore
     const documentDefinition = {content :[
@@ -185,5 +208,8 @@ export class FicheComponent implements OnInit {
     };
     pdfMake.createPdf(documentDefinition).open();
   }
+*/
+
+
 
 }
