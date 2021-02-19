@@ -1,10 +1,11 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from "@angular/common/http";
+import { HttpClient, HttpErrorResponse } from "@angular/common/http";
 import { BehaviorSubject, Observable} from "rxjs";
 import { environment } from "../../environments/environment";
 import { JwtHelperService } from "@auth0/angular-jwt";
 import { Router } from "@angular/router";
 import jwtDecode, {JwtDecodeOptions} from "jwt-decode";
+import { ErrorHandlerService } from './error-handler.service';
 
 @Injectable({
   providedIn: 'root'
@@ -12,8 +13,10 @@ import jwtDecode, {JwtDecodeOptions} from "jwt-decode";
 export class AuthenticationService {
   private currentUserSubject: BehaviorSubject<string>;
   private currentUser: Observable<string>;
+  alert: object;
+  isAlertTriggered: boolean;
 
-  constructor(private http: HttpClient, public router: Router) {
+  constructor(private http: HttpClient, public router: Router, private error: ErrorHandlerService) {
     this.currentUserSubject = new BehaviorSubject<string>(localStorage.getItem('currentUser'));
     this.currentUser = this.currentUserSubject.asObservable();
   }
@@ -33,14 +36,19 @@ export class AuthenticationService {
   }
 
   login(email: string, mdp: string) {
-    return this.http.post<any>(
-      environment.nodeApiUrl + '/api/login', {email, mdp}
-    ).subscribe(res => {
-      let tk = JSON.stringify(res).split('"')[3];
-      localStorage.setItem('currentUser', tk);
-      this.currentUserSubject.next(tk);
-      this.router.navigate(['fiche']);
-    })
+    return this.http.post<any>(environment.nodeApiUrl + '/api/login', {email, mdp})
+      .subscribe(res => {
+        let tk = JSON.stringify(res).split('"')[3];
+        localStorage.setItem('currentUser', tk);
+        this.currentUserSubject.next(tk);
+      },(err: HttpErrorResponse) => {
+        this.isAlertTriggered = true;                           
+        this.alert = this.error.errorHandler(err.status, "GET SEANCE : " + err.statusText); //COMMENT J'UTILISE CETTE SAUCE DANS LE COMPONENT CHEF ALED
+      });
+  }
+
+  public routing_to_fiche(): void {
+    this.router.navigate(['fiche']);
   }
 
   logout() {

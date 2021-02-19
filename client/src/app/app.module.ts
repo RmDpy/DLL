@@ -7,6 +7,7 @@ import { HTTP_INTERCEPTORS, HttpClientModule } from "@angular/common/http";
 import { FormsModule, ReactiveFormsModule } from "@angular/forms";
 import { AuthInterceptor } from "./services/auth.interceptor";
 import { FicheComponent } from './fiche/fiche.component';
+import { DatePipe } from '@angular/common';
 
 @NgModule({
   declarations: [
@@ -19,9 +20,10 @@ import { FicheComponent } from './fiche/fiche.component';
         AppRoutingModule,
         HttpClientModule,
         FormsModule,
-        ReactiveFormsModule
+        ReactiveFormsModule,
     ],
   providers: [
+    DatePipe,
     {
       provide: HTTP_INTERCEPTORS,
       useClass: AuthInterceptor,

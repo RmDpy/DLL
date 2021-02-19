@@ -1,6 +1,10 @@
 <div class="form-container">
+  <!-- Affichage des alertes selon erreur HTTP retournée par une ou plusieurs requêtes -->
+<div class="alert-container" *ngIf="isAlertTriggered">
+	<i class="fa fa-exclamation-circle" aria-hidden="true"></i> {{alert.text}}
+</div>
   <div class="form-body">
-    <h2 class="title">AUTHENTIFICATION</h2>
+    <h2 class="title">CONNEXION</h2>
     <div class="social-login">
       <ul>
         <li class="telecom"><a>Paris Telecom</a></li>
@@ -9,11 +13,13 @@
     </div><!-- SOCIAL LOGIN -->
     <div class="_or">Ou rentrez vos identifiants UEVE :</div>
     <form class="the-form" [formGroup]="loginForm">
-        <label for="email">Adresse Mail<span class="input_error" *ngIf="isValid('email')" > - Champ obligatoire</span></label>
-        <input type="email" formControlName="email" matInput placeholder="E-mail universitaire..." required>
-        <label>Mot de Passe<span class="input_error" *ngIf="isValid('password')" > - Champ obligatoire</span></label>
-        <input type="password" formControlName="password" matInput placeholder="Votre mot de passe..." required>
-      <input type="submit" (click)="login()" value="VALIDER">
+      <label for="email">Adresse Mail<span class="input_error" *ngIf="isValid('email')" > - Champ obligatoire</span></label>
+      <input type="email" formControlName="email" matInput placeholder="E-mail universitaire..." required>
+      <label>Mot de Passe<span class="input_error" *ngIf="isValid('password')" > - Champ obligatoire</span></label>
+      <input type="password" formControlName="password" matInput placeholder="Votre mot de passe..." required>
     </form>
+    <button type="submit" class="action_login" (click)="login()">
+      <i class="fa fa-sign-in" aria-hidden="true"></i> S'AUTHENTIFIER
+    </button>
   </div>
 </div>

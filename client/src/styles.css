@@ -31,7 +31,6 @@ body, input, button {
 }
 
 a {
-  color: inherit;
   outline: none;
   text-decoration: none;
 }
@@ -45,8 +44,18 @@ a:hover {
   margin: 0 auto;
 }
 
+.alert-container {
+  background: #ce6262;
+  margin-bottom: 20px;
+  font-weight: bold;
+  text-align: center;
+  color: #FFFFFF;
+  border-radius: 5px;
+  padding: 10px;
+}
+
 .fiche-container {
-  max-width: 550px;
+  /*max-width: 550px;*/
   margin: 0 auto;
 }
 
@@ -55,25 +64,49 @@ a:hover {
   overflow: hidden;
   padding: 50px;
   color: #ffffff;
-  border-radius: 3px;
+  border-radius: 5px;
   box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+  display: table;
+  width: 100%;
+}
+
+@media only screen and (min-width: 600px) {
+  button.action_validate {
+    width: 40%;
+    margin-left: 10px;
+  }
+  button.action_logout {
+    width: 40%;
+  }
+  
 }
 
 @media only screen and (max-width: 500px) {
-  .form-body {
-    padding: 50px 40px;
+  .form-body, .fiche-body {
+    padding: 50px 30px;
   }
 }
 
 @media only screen and (max-width: 455px) {
-  .form-body {
-    padding: 45px 30px;
+  .form-body, .fiche-body {
+    padding: 45px 20px;
   }
 }
 
 @media only screen and (max-width: 340px) {
-  .form-body {
-    padding: 30px 20px;
+  .form-body, .fiche-body {
+    padding: 30px 10px;
+  }
+}
+
+@media only screen and (max-width: 280px) {
+  .form-body, .fiche-body {
+    padding: 20px 5px;
+  }
+  .the-form [type="email"],
+  .the-form [type="password"] {
+    padding: 10px;
+    width: 100%;
   }
 }
 
@@ -97,17 +130,20 @@ a:hover {
 
 .social-login ul li a {
   background-color: #56385a;
-  border-radius: 3px;
+  border-radius: 5px;
   display: flex;
   justify-content: center;
   align-items: center;
   width: 100%;
   height: 100%;
   padding: 15px;
-  color: #e6e6e6;
+  color: #ffffff!important;
   font-weight: bold;
   text-decoration: none;
-  transition: background-color .3s;
+  -webkit-transform: scale(0.9);
+	transform: scale(0.9);
+	-webkit-transition: .3s ease-in-out;
+	transition: .3s ease-in-out;
 }
 
 .social-login ul li a::before {
@@ -121,8 +157,9 @@ a:hover {
 }
 
 .social-login ul li a:hover {
-  background-color: #fff199;
-  color: #0e090e;
+  background-color: #FFF8C5;
+  color: #0e090e!important;
+  cursor: pointer;
   box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
 }
 
@@ -197,10 +234,11 @@ li.psud a::before {
   font-size: 20px;
   background: rgba(0, 0, 0, 0.3);
   border: 1px solid rgba(255, 255, 255, 0.1);
-  border-radius: 3px;
+  border-radius: 5px;
   margin-bottom: 15px;
   transition: background .3s;
   color: #e6e6e6;
+  text-align: center;
 }
 
 .the-form [type="email"]::placeholder,
@@ -226,20 +264,46 @@ li.psud a::before {
   color: #666666;
 }
 
-.the-form [type="submit"] {
+.the-form [type="submit"], button.action_validate, button.action_logout, button.action_login {
   background: #ffb37b;
   border: 1px solid rgba(0, 0, 0, 0.1);
   padding: 18px;
   font-size: 20px;
-  border-radius: 3px;
+  border-radius: 5px;
   cursor: pointer;
   margin-top: 20px;
   color: black;
   box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+  -webkit-transform: scale(0.9);
+	transform: scale(0.9);
+	-webkit-transition: .3s ease-in-out;
+	transition: .3s ease-in-out;
+}
+
+button.action_validate:hover, .the-form [type="submit"]:hover, button.action_login:hover {
+  background:#e48c4d;
+  color: #ffffff;
+}
+
+button.action_logout {
+  background: #c4b5b5d7;
+}
+
+button.action_login {
+  width: 100%;
+}
+
+button.action_logout:hover {
+  background: #8b8b8b;
+  color: #ffffff;
 }
 
 .the-form [type="submit"]:hover {
   opacity: .9;
+}
+
+div.action_items{
+  text-align: center;
 }
 
 .form-footer div {
@@ -253,42 +317,63 @@ li.psud a::before {
   color: #ffb37b;
 }
 
-table.pres_table {
+div.table_container{
+  overflow-x:auto;
+}
+
+table.pres_table, table.info_table {
 	width: 100%;
-	border-collapse: collapse;
-    margin: 25px 0;
-    font-size: 16px;
-    font-family: sans-serif;
-    min-width: 400px;
-    box-shadow: 0 0 20px rgba(0, 0, 0, 0.15);
-    text-align: center;
+	border-collapse: separate;
+  margin: 25px 0;
+  font-size: 16px;
+  min-width: 400px;
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.15);
+  text-align: center;
 }
 
-table.pres_table thead tr {
-    background-color: #302032;
-    color: #ffffff;
+table.pres_table thead tr, table.info_table thead tr {
+  background-color: #302032;
+  color: #ffffff;
 }
 
-table.pres_table th, table.pres_table td {
-    padding: 12px 15px;
+table.pres_table th, table.pres_table td, table.info_table th, table.info_table td {
+  padding: 12px 15px;
+}
+
+.info_table tbody tr {
+  border-bottom: 1px solid #dddddd;
+  background-color: #f0f0f0;
+  color : #000000;
 }
 
 .pres_table tbody tr {
-    border-bottom: 1px solid #dddddd;
-    background-color: #624666;
+  border-bottom: 1px solid #dddddd;
+  background-color: #624666;
 }
 
 .pres_table tbody tr:nth-of-type(even) {
-    background-color: #FFF8C6;
-    color : #000000;
+  background-color: #f0f0f0;
+  color : #000000;
 }
 
 .pres_table tbody tr:last-of-type {
-    border-bottom: 2px solid #302032;
+  border-bottom: 2px solid #302032;
 }
 
 label span.input_error {
 	color : #ce6262;
 }
 
+input[type='checkbox'] {
+  -webkit-appearance:none;
+  width:30px;
+  height:30px;
+  background:white;
+  border-radius:5px;
+  border:2px solid #555;
+  cursor: pointer;
+}
 
+input[type='checkbox']:checked {
+  background:#302032;
+}

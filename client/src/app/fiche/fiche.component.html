@@ -1,28 +1,65 @@
 <div class="fiche-container">
+	<!-- Affichage des alertes selon erreur HTTP retournée par une ou plusieurs requêtes -->
+	<div class="alert-container" *ngIf="isAlertTriggered">
+		<i class="fa fa-exclamation-circle" aria-hidden="true"></i> {{alert.text}}
+	</div>
+	<!-- Affichage de la fiche de présence correspondant au prof courant de la séance courante du jour courant -->
 	<div class="fiche-body">
-		<h2 class="title">FICHE DE PRESENCE</h2>
-		<table table class="pres_table">
-		    <thead>
-		        <tr>
-		            <th>PRENOM</th>
-		            <th>NOM</th>
-                <th>PRESENT</th>
-		        </tr>
-		    </thead>
-		    <tbody>
-		        <tr *ngFor="let etud of etudiantsList$">
-		            <td>{{etud.prenom}}</td>
-		            <td>{{etud.nom}}</td>
-                <td>
-                  <input class="form-check-input" name="{{etud.prenom}}-{{etud.nom}}" type="checkbox" value=""
-                         id="flexCheckDefault">
-                </td>
-		        </tr>
-		    </tbody>
-		</table>
-		<form class="the-form">
-      <input type="submit" value="VALIDER"> <!--ici on va récupérer le form et enregistrer la valeur du cb pour la fiche -->
-		  <input type="submit" (click)="logOut()" value="QUITTER">
+		<h2 class="title">FICHE DU <b>{{formatedDate}}</b></h2>
+		<div class="table_container">
+			<table table class="info_table">
+				<thead>
+					<tr>
+						<th>MATIERE</th>
+						<th>ENSEIGNANT</th>
+						<th>LIEU</th>
+						<th>HORAIRE</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr>
+						<td><b>{{seanceActuelle.summary}}</b></td>
+						<td><b>{{seanceActuelle.prof}}</b></td>
+						<td><b>{{seanceActuelle.location}}</b></td>
+						<td><b>{{seanceHoraire}}</b></td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
+		<form (ngSubmit)="onSubmit(fiche)" #fiche="ngForm">
+			<div class="table_container">
+				<table class="pres_table">
+					<thead>
+						<tr>
+							<th>PRENOM</th>
+							<th>NOM</th>
+							<th>ACTIF</th>
+						</tr>
+					</thead>
+					<tbody *ngIf="etudiantsList$.length == 0 || etudiantsList$ == undefined || etudiantsList$ == null">
+						<tr>
+							<td><b>-</b></td>
+							<td><b>-</b></td>
+							<td><b>-</b></td>
+						</tr>
+					</tbody>
+					<tbody *ngIf="etudiantsList$.length > 0 && etudiantsList$ !== undefined && etudiantsList$ !== null">
+						<tr *ngFor="let etud of etudiantsList$">
+							<td>{{etud.prenom}}</td>
+							<td><b>{{etud.nom}}</b></td>
+							<td><input name="{{etud.prenom}} {{etud.nom}}" type="checkbox" id="flexCheckDefault" ngModel></td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+			<div class="action_items">
+				<button type="submit" class="action_logout" (click)="logOut()">
+					<i class="fa fa-sign-out" aria-hidden="true"></i> QUITTER
+				</button>
+				<button *ngIf="etudiantsList$.length > 0 && etudiantsList$ !== undefined && etudiantsList$ !== null" type="submit" class="action_validate">
+					<i class="fa fa-check-square-o" aria-hidden="true"></i> VALIDER
+				</button>
+			</div>
 		</form>
 	</div>
 </div>
