@@ -8,6 +8,7 @@ import { DatePipe } from '@angular/common';
 import { NgForm } from '@angular/forms';
 import { ErrorHandlerService } from '../services/error-handler.service';
 import { HttpErrorResponse } from '@angular/common/http';
+import { PDFHandlerService } from '../services/pdf-handler.service';
 
 @Component({
   selector: 'app-fiche',
@@ -30,7 +31,8 @@ export class FicheComponent implements OnInit {
     private utilisateurService: UtilisateurService, 
     private authenticationService: AuthenticationService, 
     private datepipe: DatePipe, 
-    private error: ErrorHandlerService
+    private error: ErrorHandlerService,
+    private pdf: PDFHandlerService
   ) {}
 
   ngOnInit(): void {
@@ -123,13 +125,14 @@ export class FicheComponent implements OnInit {
     return properHour + "h" + properMinute;
   }
 
-  onSubmit(form: NgForm) { //Console log toutes les infos necessaires pour le PDF à venir
-    console.log(form.value); //Les etudiants presents ou non
-    console.log(this.formatedDate);
-    console.log(this.seanceHoraire);
-    console.log(this.seanceActuelle.prof);
-    console.log(this.seanceActuelle.summary);
-    console.log(this.seanceActuelle.location);
+  onSubmit(fichePresences: NgForm) {
+    var presences = fichePresences.value;
+    var matiere = this.seanceActuelle.summary;
+    var enseignant = this.seanceActuelle.prof;
+    var dateJour = this.formatedDate;
+    var lieu = this.seanceActuelle.location;
+    var horaire = this.seanceHoraire;
+    this.pdf.generateFichePresence(presences, matiere, enseignant, dateJour, lieu, horaire);
   }
 
   logOut(): void {
