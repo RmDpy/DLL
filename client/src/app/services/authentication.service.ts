@@ -41,8 +41,11 @@ export class AuthenticationService {
         let tk = JSON.stringify(res).split('"')[3];
         localStorage.setItem('currentUser', tk);
         this.currentUserSubject.next(tk);
+        if(this.isAuthenticated() == true){
+          this.routing_to_fiche();
+        }
       },(err: HttpErrorResponse) => {
-        this.isAlertTriggered = true;                           
+        this.isAlertTriggered = true;
         this.alert = this.error.errorHandler(err.status, "GET SEANCE : " + err.statusText); //COMMENT J'UTILISE CETTE SAUCE DANS LE COMPONENT CHEF ALED
       });
   }
@@ -56,4 +59,10 @@ export class AuthenticationService {
     this.currentUserSubject.next(null);
     this.router.navigate(['login']);
   }
+
+  afficherAlerte(text: string){
+    this.isAlertTriggered = true;
+    return this.alert = this.error.errorHandler(418, text);
+  }
+
 }

@@ -32,13 +32,12 @@ export class LoginComponent implements OnInit {
     if (this.loginForm.valid) {
       this.authenticationService.login(this.loginForm.value.email, this.loginForm.value.password);
       if(this.authenticationService.isAuthenticated()){
-        this.authenticationService.routing_to_fiche();
       } else {
-        this.isAlertTriggered = true;                             
+        this.isAlertTriggered = true;
         this.alert = this.error.errorHandler(418, "IDENTIFIANTS INVALIDES");
       }
     } else {
-      this.isAlertTriggered = true;                             
+      this.isAlertTriggered = true;
       this.alert = this.error.errorHandler(418, "FORMULAIRE INVALIDE");
     }
   }
