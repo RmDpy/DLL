@@ -26,11 +26,12 @@ export class FicheComponent implements OnInit {
   enseignantCo: Enseignant;
   alert: object;
   isAlertTriggered: boolean;
+  listeSeance: Seance[] = [];
 
   constructor(
-    private utilisateurService: UtilisateurService, 
-    private authenticationService: AuthenticationService, 
-    private datepipe: DatePipe, 
+    private utilisateurService: UtilisateurService,
+    private authenticationService: AuthenticationService,
+    private datepipe: DatePipe,
     private error: ErrorHandlerService,
     private pdf: PDFHandlerService
   ) {}
@@ -41,7 +42,7 @@ export class FicheComponent implements OnInit {
     this.formatedDate = this.datepipe.transform(this.todayDate, 'dd-MM-yyyy');
     // @ts-ignore
     this.enseignantCo = test.docs;
-    this.getSeanceActuelle(this.enseignantCo, this.todayDate);
+    this.getSeancesByProf(this.enseignantCo);
     this.seanceActuelle = { prof: "-", summary: "-", dtStart: "-", dtEnd: "-", location: "-", matiere: "-", type: "-", duree: "-" }
     this.seanceHoraire = "-";
   }
@@ -51,7 +52,7 @@ export class FicheComponent implements OnInit {
       .subscribe( (s: Seance[]) => {
         this.seancesList$ = s;
       },(err: HttpErrorResponse) => {
-        this.isAlertTriggered = true;                             
+        this.isAlertTriggered = true;
         this.alert = this.error.errorHandler(err.status, "GET SEANCE : " + err.statusText);
       });
   }
@@ -61,56 +62,53 @@ export class FicheComponent implements OnInit {
       .subscribe( (s: Seance[]) => {
         s.forEach( (se: Seance) => {
           if(se.prof === prof.nom)
-            this.seancesList$.push(se);
+            this.listeSeance.push(se);
         })
+        this.getSeanceActuelle(prof, new Date());
       },(err: HttpErrorResponse) => {
-        this.isAlertTriggered = true;                             
+        this.isAlertTriggered = true;
         this.alert = this.error.errorHandler(err.status, "GET SEANCE BY PROF : " + err.statusText);
       });
   }
 
   getSeanceActuelle(prof: Enseignant, date: Date){
-    this.utilisateurService.getAllSeances()
-      .subscribe( (s: Seance[]) => {
-        s.forEach( (se: Seance) => {
-          if(se.prof === prof.nom){
-            var dateDeb = new Date();
-            dateDeb.setFullYear(parseInt(se.dtStart.substr(0,4)));
-            dateDeb.setMonth(parseInt(se.dtStart.substr(5,2))-1);
-            dateDeb.setDate(parseInt(se.dtStart.substr(8,2)));
-            dateDeb.setHours(parseInt(se.dtStart.substr(11,2)));
-            dateDeb.setMinutes(parseInt(se.dtStart.substr(14,2)));
-            var dateEnd = new Date();
-            dateEnd.setFullYear(parseInt(se.dtEnd.substr(0,4)));
-            dateEnd.setMonth(parseInt(se.dtEnd.substr(5,2))-1);
-            dateEnd.setDate(parseInt(se.dtEnd.substr(8,2)));
-            dateEnd.setHours(parseInt(se.dtEnd.substr(11,2)));
-            dateEnd.setMinutes(parseInt(se.dtEnd.substr(14,2)));
-            if(dateDeb < date && date < dateEnd) { //CETTE FONCTION EST CALL 48 FOIS EN 1 REQUETE Y A PEUT-ETRE MOYEN DE L'OPTIMISER UN PEU LMAO
-              this.seanceActuelle = se;
-              this.seanceHoraire = this.setHoraire(dateDeb.getHours(), dateDeb.getMinutes()) + "-" + this.setHoraire(dateEnd.getHours(), dateEnd.getMinutes());
-              this.getEtudiants();
-            } else {
-              this.isAlertTriggered = true;                             
-              this.alert = this.error.errorHandler(418, "AUCUNE SEANCE POUR CE JOUR OU CET HORAIRE");
-            }
-          } else {
-            this.isAlertTriggered = true;                             
-            this.alert = this.error.errorHandler(418, "AUCUNE SEANCE N'EXISTE POUR CET ENSEIGNANT");
-          }
-        })
-      },(err: HttpErrorResponse) => {
-        this.isAlertTriggered = true;                             
-        this.alert = this.error.errorHandler(err.status, "GET SEANCE ACTUELLE : " + err.statusText);
-      });
+    if(this.listeSeance.length == 0){
+      this.isAlertTriggered = true;
+      this.alert = this.error.errorHandler(418, "AUCUNE SEANCE N'EXISTE POUR CET ENSEIGNANT");
+    } else {
+      this.listeSeance.forEach((se: Seance) => {
+        var dateDeb = new Date();
+        dateDeb.setFullYear(parseInt(se.dtStart.substr(0,4)));
+        dateDeb.setMonth(parseInt(se.dtStart.substr(5,2))-1);
+        dateDeb.setDate(parseInt(se.dtStart.substr(8,2)));
+        dateDeb.setHours(parseInt(se.dtStart.substr(11,2)));
+        dateDeb.setMinutes(parseInt(se.dtStart.substr(14,2)));
+        var dateEnd = new Date();
+        dateEnd.setFullYear(parseInt(se.dtEnd.substr(0,4)));
+        dateEnd.setMonth(parseInt(se.dtEnd.substr(5,2))-1);
+        dateEnd.setDate(parseInt(se.dtEnd.substr(8,2)));
+        dateEnd.setHours(parseInt(se.dtEnd.substr(11,2)));
+        dateEnd.setMinutes(parseInt(se.dtEnd.substr(14,2)));
+        if(dateDeb < date && date < dateEnd) { //CETTE FONCTION EST CALL 48 FOIS EN 1 REQUETE Y A PEUT-ETRE MOYEN DE L'OPTIMISER UN PEU LMAO
+          this.seanceActuelle = se;
+          this.seanceHoraire = this.setHoraire(dateDeb.getHours(), dateDeb.getMinutes()) + "-" + this.setHoraire(dateEnd.getHours(), dateEnd.getMinutes());
+          this.getEtudiants();
+        } else {
+          let seance: Seance;
+          this.isAlertTriggered = true;
+          this.alert = this.error.errorHandler(418, "AUCUNE SEANCE POUR CE JOUR OU CET HORAIRE");
+        }
+      })
+    }
   }
+
 
   getEtudiants(): void {
     this.utilisateurService.getAllEtudiants()
       .subscribe((e: Etudiant[]) => {
         this.etudiantsList$ = e;
       },(err: HttpErrorResponse) => {
-        this.isAlertTriggered = true;                             
+        this.isAlertTriggered = true;
         this.alert = this.error.errorHandler(err.status, "GET ETUDIANTS : " + err.statusText);
       });
   }
