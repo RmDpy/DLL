@@ -13,11 +13,16 @@ export class PDFHandlerService {
     const doc = new jsPDF();
     //Remplir les lignes de la fiche
     var fichePresenceRows = [];
+    var nombreAbsences = 0;
     for (let [etudiant,presence] of Object.entries(presences)) {
       if(presence === true)
         presence = "P";
+      else
+        nombreAbsences++;
       fichePresenceRows.push([etudiant,presence]);
     }
+    doc.setFontType("bold");
+    fichePresenceRows.push(["TOTAL DES ABSENCES", nombreAbsences]);
     //Generer le titre de la feuille
     doc.text("FICHE DE PRESENCE DU " + jour + "\n", 10, 10);
     //Generer le tableau des infos generales sur la seance actuelle
