@@ -3,10 +3,12 @@ const bodyParser = require('body-parser');
 const jwt = require('jsonwebtoken');
 const mongoose = require('mongoose');
 
+//const signer = require('node-signpdf').default;
+//const fs = require("fs");
+//const helpers = require('node-signpdf/dist/helpers');
+
 const app = express();
 app.use(bodyParser.json());
-
-
 
 //Connexion à la base de donnée
 mongoose
@@ -14,12 +16,10 @@ mongoose
         useNewUrlParser: true,
         useUnifiedTopology: true
     })
-    .then(() => console.log('Connexion à mongo réussi'))
-    .catch(() => console.log ('Echec de la connexion à mongo'));
+    .then(() => console.log('\nConnexion à mongo réussi'))
+    .catch(() => console.log ('\nEchec de la connexion à mongo'));
 
 let db = mongoose.connection;
-
-
 
 //----*** GET **----
 app.get('/api', (req, res) => {
@@ -78,8 +78,6 @@ app.get('/api/compteUser', verifyToken, (req, res) => {
     })
 });
 
-
-
 //----** POST **----
 app.post('/api/login', (req, res) => {
     const email = req.body.email;
@@ -98,8 +96,6 @@ app.post('/api/login', (req, res) => {
         })
 });
 
-
-
 function verifyToken(req, res, next) {
     const bearerHeader = req.headers['authorization'];
     if(typeof bearerHeader !== 'undefined') {
@@ -113,9 +109,30 @@ function verifyToken(req, res, next) {
 
 }
 
+/*
+function digitallySignDocument ( fileName ) {
 
+    console.log("SIGNATURE");
+
+    //const passphrase = 'DA5cJvezM6Px6JLR';
+    const p12Buffer  = fs.readFileSync (`./assets/certificate.p12`);
+    let pdfBuffer    = fs.readFileSync (`./assets/` + fileName);
+
+    pdfBuffer = helpers.plainAddPlaceholder ( { pdfBuffer, reason: 'Presences', signatureLength: 1612, author: "Laiolo", Date: "21/02/2021" } )
+    
+    pdfBuffer = signer.sign ( pdfBuffer, p12Buffer ) //,{ passphrase }
+    const {signature, signeData} = helpers.extractSignature(pdfBuffer);
+
+    console.log(signer);
+    console.log(signature);
+   //console.log(signeData);
+
+    fs.writeFileSync ( `./assets/results/` + fileName, pdfBuffer )
+  }
+*/
 
 //lancement de l'api sur le port 3000
 app.listen(3000, () => {
-    console.log("Serveur à l'écoute 3000")
+    console.log("\nServeur à l'écoute 3000")
+    //digitallySignDocument( "table.pdf" )
 });
