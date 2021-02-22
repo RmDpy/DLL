@@ -171,13 +171,20 @@ export class FicheComponent implements OnInit {
   }
 
   onSubmit(fichePresences: NgForm) {
+    var nombreAbsences = 0;
     var presences = fichePresences.value;
+    for (let [etudiant,presence] of Object.entries(presences)) {
+      if(presence === false || presence === "")
+        nombreAbsences++;
+    }
     var matiere = this.seanceActuelle.summary;
     var enseignant = this.seanceActuelle.prof;
     var dateJour = this.formatedDateActuelle;
     var lieu = this.seanceActuelle.location;
     var horaire = this.horaireActuel;
-    this.pdf.generateFichePresence(presences, matiere, enseignant, dateJour, lieu, horaire);
+    this.pdf.generateFichePresence(presences, nombreAbsences, matiere, enseignant, dateJour, lieu, horaire);
+    this.listeSeance.slice(0,1);
+    this.logOut();
   }
 
   logOut(): void {

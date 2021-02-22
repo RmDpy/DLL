@@ -9,19 +9,18 @@ import 'jspdf-autotable';
 
 export class PDFHandlerService {
 
-  generateFichePresence(presences: Object, matiere: String, enseignant: String, jour: String, location: String, horaire: String){
+  generateFichePresence(presences: Object, absences: Number, matiere: String, enseignant: String, jour: String, location: String, horaire: String){
     const doc = new jsPDF();
     //Remplir les lignes de la fiche
     var fichePresenceRows = [];
-    var nombreAbsences = 0;
     for (let [etudiant,presence] of Object.entries(presences)) {
       if(presence === true)
         presence = "P";
       else
-        nombreAbsences++;
+        presence = "";
       fichePresenceRows.push([etudiant,presence]);
     }
-    fichePresenceRows.push(["TOTAL DES ABSENCES", nombreAbsences]);
+    fichePresenceRows.push(["TOTAL DES ABSENCES", absences]);
     //Generer le titre de la feuille
     doc.autoTable({
       startY: 7,
