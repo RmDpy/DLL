@@ -21,10 +21,13 @@ export class PDFHandlerService {
         nombreAbsences++;
       fichePresenceRows.push([etudiant,presence]);
     }
-    doc.setFontType("bold");
     fichePresenceRows.push(["TOTAL DES ABSENCES", nombreAbsences]);
     //Generer le titre de la feuille
-    doc.text("FICHE DE PRESENCE DU " + jour + "\n", 10, 10);
+    doc.autoTable({
+      startY: 7,
+      styles: { halign: 'center', fillColor: '#E5E5E5', textColor: '#000000' },
+      head: [["FICHE DE PRESENCE DU " + jour]],
+    })
     //Generer le tableau des infos generales sur la seance actuelle
     doc.autoTable({
       styles: { halign: 'center' },
@@ -34,6 +37,16 @@ export class PDFHandlerService {
     })
     //Generer le tableau correspond à la fiche de présence elle-même
     doc.autoTable({
+      didParseCell: data => {  
+        if (data.cell.raw === "P"){
+          data.cell.styles.fillColor = '#8CD45C';
+          data.cell.styles.fontStyle = 'bold';
+        }
+        if(data.cell.raw === "TOTAL DES ABSENCES" || Number.isInteger(data.cell.raw)){
+          data.cell.styles.fillColor = '#900C3F';
+          data.cell.styles.textColor = '#FFFFFF';
+        }
+      },
       styles: { halign: 'center' },
       theme: 'grid',
       head: [['Etudiant', 'Presence']],
