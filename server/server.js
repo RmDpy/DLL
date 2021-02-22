@@ -7,6 +7,8 @@ const mongoose = require('mongoose');
 //const fs = require("fs");
 //const helpers = require('node-signpdf/dist/helpers');
 
+var nodemailer = require('nodemailer'); 
+
 const app = express();
 app.use(bodyParser.json());
 
