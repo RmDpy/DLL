@@ -109,6 +109,7 @@ export class FicheComponent implements OnInit {
             this.isAlertTriggered = true;
             this.alert = this.error.errorHandler(418, "AUCUNE SEANCE POUR CE JOUR OU CET HORAIRE");
             let seancePro: Seance = this.listeSeance[0]; //cette variable donne la séance pro je te laisse gérer l'affichage comme tu le souhaites
+            console.log(seancePro);
             return true; //sert à stoper le some
           }
         }
