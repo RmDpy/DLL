@@ -108,7 +108,6 @@ function verifyToken(req, res, next) {
 
 }
 
-/*
 function digitallySignDocument ( fileName ) {
 
     console.log("SIGNATURE");
@@ -128,7 +127,6 @@ function digitallySignDocument ( fileName ) {
 
     fs.writeFileSync ( `./assets/results/` + fileName, pdfBuffer )
   }
-*/
 
 //lancement de l'api sur le port 3000
 app.listen(3000, () => {

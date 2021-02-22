@@ -17,15 +17,24 @@ import { PDFHandlerService } from '../services/pdf-handler.service';
 })
 
 export class FicheComponent implements OnInit {
-  todayDate: Date;
-  formatedDate: String;
+
   etudiantsList$: Etudiant[] = [];
-  seanceActuelle: Seance;
-  seanceHoraire: String;
+  listeSeance: Seance[] = [];
+
   enseignantCo: Enseignant;
+
+  dateActuelle: Date;
+  formatedDateActuelle: String;
+  seanceActuelle: Seance;
+  horaireActuel: String;
+
+  prochaineDate: Date;
+  formatedProchaineDate: String;
+  seanceProchaine: Seance;
+  prochainHoraire: String;
+
   alert: object;
   isAlertTriggered: boolean;
-  listeSeance: Seance[] = [];
 
   constructor(
     private utilisateurService: UtilisateurService,
@@ -37,13 +46,17 @@ export class FicheComponent implements OnInit {
 
   ngOnInit(): void {
     const test = this.authenticationService.getJwtDecode();
-    this.todayDate = new Date();
-    this.formatedDate = this.datepipe.transform(this.todayDate, 'dd-MM-yyyy');
+    this.dateActuelle = new Date();
+    this.prochaineDate = new Date();
+    this.formatedDateActuelle = this.datepipe.transform(this.dateActuelle, 'dd-MM-yyyy');
+    this.formatedProchaineDate = this.datepipe.transform(this.prochaineDate, 'dd-MM-yyyy');
     // @ts-ignore
     this.enseignantCo = test.docs;
     this.getSeancesByProf(this.enseignantCo);
     this.seanceActuelle = { prof: "-", summary: "-", dtStart: "-", dtEnd: "-", location: "-", matiere: "-", type: "-", duree: "-" }
-    this.seanceHoraire = "-";
+    this.seanceProchaine = { prof: "-", summary: "-", dtStart: "-", dtEnd: "-", location: "-", matiere: "-", type: "-", duree: "-" }
+    this.horaireActuel = "-";
+    this.prochainHoraire = "-";
   }
 
   getSeances(): void {
@@ -100,15 +113,16 @@ export class FicheComponent implements OnInit {
         if(dateEnd < date){
           this.listeSeance.slice(0,1);
         } else {
-          if(dateDeb < date && date < dateEnd) { //CETTE FONCTION EST CALL 48 FOIS EN 1 REQUETE Y A PEUT-ETRE MOYEN DE L'OPTIMISER UN PEU LMAO
+            this.seanceProchaine = this.listeSeance[0]; //cette variable donne la séance prochaine
+            this.prochainHoraire = this.setHoraire(dateDeb.getHours(), dateDeb.getMinutes()) + "-" + this.setHoraire(dateEnd.getHours(), dateEnd.getMinutes());
+          if(dateDeb < date && date < dateEnd) { //CETTE FONCTION EST CALL 48 FOIS EN 1 REQUETE Y A PEUT-ETRE MOYEN DE L'OPTIMISER UN PEU
             this.seanceActuelle = se;
-            this.seanceHoraire = this.setHoraire(dateDeb.getHours(), dateDeb.getMinutes()) + "-" + this.setHoraire(dateEnd.getHours(), dateEnd.getMinutes());
+            this.horaireActuel = this.setHoraire(dateDeb.getHours(), dateDeb.getMinutes()) + "-" + this.setHoraire(dateEnd.getHours(), dateEnd.getMinutes());
             this.getEtudiants();
             return true; //sert a stoper le some
           } else {
             this.isAlertTriggered = true;
             this.alert = this.error.errorHandler(418, "AUCUNE SEANCE POUR CE JOUR OU CET HORAIRE");
-            let seancePro: Seance = this.listeSeance[0]; //cette variable donne la séance pro je te laisse gérer l'affichage comme tu le souhaites
             return true; //sert à stoper le some
           }
         }
@@ -148,9 +162,9 @@ export class FicheComponent implements OnInit {
     var presences = fichePresences.value;
     var matiere = this.seanceActuelle.summary;
     var enseignant = this.seanceActuelle.prof;
-    var dateJour = this.formatedDate;
+    var dateJour = this.formatedDateActuelle;
     var lieu = this.seanceActuelle.location;
-    var horaire = this.seanceHoraire;
+    var horaire = this.horaireActuel;
     this.pdf.generateFichePresence(presences, matiere, enseignant, dateJour, lieu, horaire);
   }
 
