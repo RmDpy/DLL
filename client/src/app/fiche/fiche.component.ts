@@ -47,9 +47,7 @@ export class FicheComponent implements OnInit {
   ngOnInit(): void {
     const test = this.authenticationService.getJwtDecode();
     this.dateActuelle = new Date();
-    this.prochaineDate = new Date();
     this.formatedDateActuelle = this.datepipe.transform(this.dateActuelle, 'dd-MM-yyyy');
-    this.formatedProchaineDate = this.datepipe.transform(this.prochaineDate, 'dd-MM-yyyy');
     // @ts-ignore
     this.enseignantCo = test.docs;
     this.getSeancesByProf(this.enseignantCo);
@@ -57,6 +55,7 @@ export class FicheComponent implements OnInit {
     this.seanceProchaine = { prof: "-", summary: "-", dtStart: "-", dtEnd: "-", location: "-", matiere: "-", type: "-", duree: "-" }
     this.horaireActuel = "-";
     this.prochainHoraire = "-";
+    this.formatedProchaineDate = "-";
   }
 
   getSeances(): void {
@@ -85,7 +84,7 @@ export class FicheComponent implements OnInit {
           }
           return 0;
         })
-        this.getSeanceActuelle(prof, new Date());
+        this.getSeanceActuelle(prof, this.dateActuelle);
       },(err: HttpErrorResponse) => {
         this.isAlertTriggered = true;
         this.alert = this.error.errorHandler(err.status, "GET SEANCE BY PROF : " + err.statusText);
@@ -98,26 +97,19 @@ export class FicheComponent implements OnInit {
       this.alert = this.error.errorHandler(418, "AUCUNE SEANCE N'EXISTE POUR CET ENSEIGNANT");
     } else {
       this.listeSeance.some((se: Seance) => {
-        var dateDeb = new Date();
-        dateDeb.setFullYear(parseInt(se.dtStart.substr(0,4)));
-        dateDeb.setMonth(parseInt(se.dtStart.substr(5,2))-1);
-        dateDeb.setDate(parseInt(se.dtStart.substr(8,2)));
-        dateDeb.setHours(parseInt(se.dtStart.substr(11,2)));
-        dateDeb.setMinutes(parseInt(se.dtStart.substr(14,2)));
-        var dateEnd = new Date();
-        dateEnd.setFullYear(parseInt(se.dtEnd.substr(0,4)));
-        dateEnd.setMonth(parseInt(se.dtEnd.substr(5,2))-1);
-        dateEnd.setDate(parseInt(se.dtEnd.substr(8,2)));
-        dateEnd.setHours(parseInt(se.dtEnd.substr(11,2)));
-        dateEnd.setMinutes(parseInt(se.dtEnd.substr(14,2)));
-        if(dateEnd < date){
+        var dateDebActuelle = this.setDateDeb(se);
+        var dateEndActuelle = this.setDateEnd(se);
+        if(dateEndActuelle < date){
           this.listeSeance.slice(0,1);
         } else {
             this.seanceProchaine = this.listeSeance[0]; //cette variable donne la séance prochaine
-            this.prochainHoraire = this.setHoraire(dateDeb.getHours(), dateDeb.getMinutes()) + "-" + this.setHoraire(dateEnd.getHours(), dateEnd.getMinutes());
-          if(dateDeb < date && date < dateEnd) { //CETTE FONCTION EST CALL 48 FOIS EN 1 REQUETE Y A PEUT-ETRE MOYEN DE L'OPTIMISER UN PEU
+            var prochaineDateDeb = this.setDateDeb(this.seanceProchaine);
+            var prochaineDateEnd = this.setDateEnd(this.seanceProchaine);
+            this.formatedProchaineDate = this.datepipe.transform(prochaineDateDeb, 'dd-MM-yyyy');
+            this.prochainHoraire = this.setHoraire(prochaineDateDeb.getHours(), prochaineDateDeb.getMinutes()) + "-" + this.setHoraire(prochaineDateEnd.getHours(), prochaineDateEnd.getMinutes());
+          if(dateDebActuelle < date && date < dateEndActuelle) { //CETTE FONCTION EST CALL 48 FOIS EN 1 REQUETE Y A PEUT-ETRE MOYEN DE L'OPTIMISER UN PEU
             this.seanceActuelle = se;
-            this.horaireActuel = this.setHoraire(dateDeb.getHours(), dateDeb.getMinutes()) + "-" + this.setHoraire(dateEnd.getHours(), dateEnd.getMinutes());
+            this.horaireActuel = this.setHoraire(dateDebActuelle.getHours(), dateDebActuelle.getMinutes()) + "-" + this.setHoraire(dateEndActuelle.getHours(), dateEndActuelle.getMinutes());
             this.getEtudiants();
             return true; //sert a stoper le some
           } else {
@@ -129,7 +121,7 @@ export class FicheComponent implements OnInit {
       })
     }
   }
-
+  
   getEtudiants(): void {
     this.utilisateurService.getAllEtudiants()
       .subscribe((e: Etudiant[]) => {
@@ -158,14 +150,41 @@ export class FicheComponent implements OnInit {
     return properHour + "h" + properMinute;
   }
 
+  setDateDeb(se: Seance): Date{
+    var dateDebSeance = new Date();
+    dateDebSeance.setFullYear(parseInt(se.dtStart.substr(0,4)));
+    dateDebSeance.setMonth(parseInt(se.dtStart.substr(5,2))-1);
+    dateDebSeance.setDate(parseInt(se.dtStart.substr(8,2)));
+    dateDebSeance.setHours(parseInt(se.dtStart.substr(11,2)));
+    dateDebSeance.setMinutes(parseInt(se.dtStart.substr(14,2)));
+    return dateDebSeance;
+  }
+
+  setDateEnd(se: Seance): Date{
+    var dateEndSeance = new Date();
+    dateEndSeance.setFullYear(parseInt(se.dtEnd.substr(0,4)));
+    dateEndSeance.setMonth(parseInt(se.dtEnd.substr(5,2))-1);
+    dateEndSeance.setDate(parseInt(se.dtEnd.substr(8,2)));
+    dateEndSeance.setHours(parseInt(se.dtEnd.substr(11,2)));
+    dateEndSeance.setMinutes(parseInt(se.dtEnd.substr(14,2)));
+    return dateEndSeance;
+  }
+
   onSubmit(fichePresences: NgForm) {
+    var nombreAbsences = 0;
     var presences = fichePresences.value;
+    for (let [etudiant,presence] of Object.entries(presences)) {
+      if(presence === false || presence === "")
+        nombreAbsences++;
+    }
     var matiere = this.seanceActuelle.summary;
     var enseignant = this.seanceActuelle.prof;
     var dateJour = this.formatedDateActuelle;
     var lieu = this.seanceActuelle.location;
     var horaire = this.horaireActuel;
-    this.pdf.generateFichePresence(presences, matiere, enseignant, dateJour, lieu, horaire);
+    this.pdf.generateFichePresence(presences, nombreAbsences, matiere, enseignant, dateJour, lieu, horaire);
+    this.listeSeance.slice(0,1);
+    this.logOut();
   }
 
   logOut(): void {
