@@ -62,7 +62,7 @@ app.get('/api/getSeance', verifyToken, (req,res) => {
     })
 })
 
-app.get('/api/getSeanceByProf', (req,res) => {
+/*app.get('/api/getSeanceByProf', (req,res) => {
     const unProf = req.body.enseignant;
     db.collection('seances').findOne({prof: unProf})
         .then(docs => res.status(200).json(docs))
@@ -70,7 +70,7 @@ app.get('/api/getSeanceByProf', (req,res) => {
             console.log(err);
             throw err;
         })
-})
+})*/
 
 app.get('/api/compteUser', verifyToken, (req, res) => {
     jwt.verify(req.token, 'ninja', (err, authData) => {
