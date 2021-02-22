@@ -3,9 +3,12 @@ const bodyParser = require('body-parser');
 const jwt = require('jsonwebtoken');
 const mongoose = require('mongoose');
 
-//const signer = require('node-signpdf').default;
-//const fs = require("fs");
-//const helpers = require('node-signpdf/dist/helpers');
+const signer = require('node-signpdf').default;
+const fs = require("fs");
+const helpers = require('node-signpdf/dist/helpers');
+
+const nodemailer = require('nodemailer');
+const transporter = nodemailer.createTransport({ service: 'hotmail', auth: { user: 'louis.laiolo@hotmail.com', pass: 'monsterhunter1' } });
 
 const app = express();
 app.use(bodyParser.json());
@@ -105,31 +108,34 @@ function verifyToken(req, res, next) {
     } else {
         res.sendStatus(403);
     }
-
 }
 
-/*
 function digitallySignDocument ( fileName ) {
-
-    console.log("SIGNATURE");
-
     //const passphrase = 'DA5cJvezM6Px6JLR';
     const p12Buffer  = fs.readFileSync (`./assets/certificate.p12`);
     let pdfBuffer    = fs.readFileSync (`./assets/` + fileName);
-
-    pdfBuffer = helpers.plainAddPlaceholder ( { pdfBuffer, reason: 'Presences', signatureLength: 1612, author: "Laiolo", Date: "21/02/2021" } )
-    
-    pdfBuffer = signer.sign ( pdfBuffer, p12Buffer ) //,{ passphrase }
+    pdfBuffer = helpers.plainAddPlaceholder ( { pdfBuffer, reason: 'Presences confirmées', signatureLength: 1612, author: "Laiolo", Date: "21/02/2021" } )
+    pdfBuffer = signer.sign ( pdfBuffer, p12Buffer ) //possible de rajouter ,{ passphrase } juste apres p12Buffer
     const {signature, signeData} = helpers.extractSignature(pdfBuffer);
-
-    console.log(signer);
-    console.log(signature);
-   //console.log(signeData);
-
     fs.writeFileSync ( `./assets/results/` + fileName, pdfBuffer )
   }
-*/
 
+function sendDocumentByMail( fileName ){
+    var mailOptions = {
+        from: 'louis.laiolo@hotmail.com',
+        to: 'perduo@live.fr',
+        subject: 'Fiche de presence',
+        text: 'Projet R&D - M2 MIAGE APP - 2021'
+    };
+
+    transporter.sendMail(mailOptions, function(error, info){
+        if (error) {
+          console.log(error);
+        } else {
+          console.log('Email envoyé : ' + info.response);
+        }
+    }); 
+}
 //lancement de l'api sur le port 3000
 app.listen(3000, () => {
     console.log("\nServeur à l'écoute 3000")
