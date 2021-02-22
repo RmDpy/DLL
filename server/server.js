@@ -40,7 +40,6 @@ app.get('/api/getEtudiants', verifyToken, (req, res) => {
         }
     })
 });
-
 app.get('/api/getSeance', verifyToken, (req,res) => {
     jwt.verify(req.token, 'ninja', (err, authData) => {
         if(err) {
