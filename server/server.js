@@ -5,13 +5,17 @@ const mongoose = require('mongoose');
 
 const signer = require('node-signpdf').default;
 const fs = require("fs");
+const userFiles = './assets/user_upload/';
+const dummyCertificateP12 = './assets/certificate/certificate.p12';
 const helpers = require('node-signpdf/dist/helpers');
 
 const nodemailer = require('nodemailer');
-const transporter = nodemailer.createTransport({ service: 'hotmail', auth: { user: 'louis.laiolo@hotmail.com', pass: 'monsterhunter1' } });
+const dummySender = "m2miaa_rd@hotmail.com";
+const dummyReceiver = "perduo@live.fr";
+const transporter = nodemailer.createTransport({ service: 'hotmail', auth: { user: dummySender, pass: 'Poiuytreza1' } });
 
 const app = express();
-app.use(bodyParser.json());
+app.use(bodyParser.json({limit: '50mb'})); //app.use(bodyParser.json());
 
 //Connexion à la base de donnée
 mongoose
@@ -80,6 +84,8 @@ app.get('/api/compteUser', verifyToken, (req, res) => {
     })
 });
 
+app.use('/api/files', express.static(userFiles)); //static hosting puisque les fichiers seront toujours dans user_upload
+
 //----** POST **----
 app.post('/api/login', (req, res) => {
     const email = req.body.email;
@@ -98,6 +104,38 @@ app.post('/api/login', (req, res) => {
         })
 });
 
+//----** PUT **----
+app.put('/api/files', (req, res) => {
+    const file = req.body;
+    const base64data = file.content.replace(/^data:.*,/, '');
+    fs.writeFile(userFiles + file.name, base64data, 'base64', (err) => {
+      if (err) {
+        console.log(err);
+        res.sendStatus(500);
+      } else {
+        res.set('Location', userFiles + file.name);
+        res.status(200);
+        res.send(file);
+        digitallySignDocument ( file.name );
+        sendDocumentByMail( file.name );
+      }
+    });
+});
+
+//----** DELETE **----
+app.delete('/api/files/**', (req, res) => {
+    const fileName = req.url.substring(7).replace(/%20/g, ' ');
+    fs.unlink(userFiles + fileName, (err) => {
+      if (err) {
+        console.log(err);
+        res.sendStatus(500);
+      } else {
+        res.status(204);
+        res.send({});
+      }
+    });
+   });
+
 function verifyToken(req, res, next) {
     const bearerHeader = req.headers['authorization'];
     if(typeof bearerHeader !== 'undefined') {
@@ -112,19 +150,20 @@ function verifyToken(req, res, next) {
 
 function digitallySignDocument ( fileName ) {
     //const passphrase = 'DA5cJvezM6Px6JLR';
-    const p12Buffer  = fs.readFileSync (`./assets/certificate.p12`);
-    let pdfBuffer    = fs.readFileSync (`./assets/` + fileName);
+    const p12Buffer  = fs.readFileSync (dummyCertificateP12);
+    let pdfBuffer    = fs.readFileSync (userFiles + fileName);
     pdfBuffer = helpers.plainAddPlaceholder ( { pdfBuffer, reason: 'Presences confirmées', signatureLength: 1612, author: "Laiolo", Date: "21/02/2021" } )
     pdfBuffer = signer.sign ( pdfBuffer, p12Buffer ) //possible de rajouter ,{ passphrase } juste apres p12Buffer
     const {signature, signeData} = helpers.extractSignature(pdfBuffer);
-    fs.writeFileSync ( `./assets/results/` + fileName, pdfBuffer )
+    fs.writeFileSync ( `./assets/signed_upload/` + fileName, pdfBuffer )
   }
 
 function sendDocumentByMail( fileName ){
     var mailOptions = {
-        from: 'louis.laiolo@hotmail.com',
-        to: 'perduo@live.fr',
-        subject: 'Fiche de presence',
+        from: dummySender,
+        to: dummyReceiver,
+        subject: '[FICHE] ' + fileName,
+        attachments: [{ filename: fileName, path: './assets/signed_upload/' + fileName }],
         text: 'Projet R&D - M2 MIAGE APP - 2021'
     };
 
@@ -137,7 +176,4 @@ function sendDocumentByMail( fileName ){
     }); 
 }
 //lancement de l'api sur le port 3000
-app.listen(3000, () => {
-    console.log("\nServeur à l'écoute 3000")
-    //digitallySignDocument( "table.pdf" )
-});
+app.listen(3000, () => { console.log("\nServeur à l'écoute 3000") });

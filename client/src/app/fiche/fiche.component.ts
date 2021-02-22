@@ -184,7 +184,6 @@ export class FicheComponent implements OnInit {
     var horaire = this.horaireActuel;
     this.pdf.generateFichePresence(presences, nombreAbsences, matiere, enseignant, dateJour, lieu, horaire);
     this.listeSeance.slice(0,1);
-    this.logOut();
   }
 
   logOut(): void {

@@ -52,7 +52,7 @@ export class PDFHandlerService {
       body: fichePresenceRows,
     })
     //Sauvegarder le pdf dans le dossier courant à la racine
-    doc.save("table.pdf");
+    doc.save("fiche_" + enseignant + "_" + jour + "_" + ".pdf");
   }
   
 }

@@ -1,0 +1,6 @@
+<div class="prochaine-seance-body">
+    <form [formGroup] = "formGroup" (ngSubmit)="onSubmit()">
+    <input type="file" (change)="onFileChange($event)" />
+    <input type="submit" [disabled]="formGroup.invalid" value="SIGNER" />
+    </form>
+</div>

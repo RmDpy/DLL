@@ -8,11 +8,9 @@ import { AuthenticationService} from "./authentication.service";
   providedIn: 'root'
 })
 export class UtilisateurService {
-  constructor(private http: HttpClient,
-              private authenticationService: AuthenticationService) {
+  constructor(private http: HttpClient, private authenticationService: AuthenticationService) {
 
   }
-
 
   getSeanceFromVT(){
     this.http.get(
@@ -36,10 +34,7 @@ export class UtilisateurService {
       environment.nodeApiUrl + '/api/getSeance', httpOptions
     )
   }
-
-
-
-
+  
   getAllEtudiants() {
     const httpOptions = {
       headers: new HttpHeaders({

@@ -8,12 +8,16 @@ import { FormsModule, ReactiveFormsModule } from "@angular/forms";
 import { AuthInterceptor } from "./services/auth.interceptor";
 import { FicheComponent } from './fiche/fiche.component';
 import { DatePipe } from '@angular/common';
+import { FileUploaderComponent } from './file-uploader/file-uploader.component';
+import { FileListComponent } from './file-list/file-list.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     LoginComponent,
-    FicheComponent
+    FicheComponent,
+    FileUploaderComponent,
+    FileListComponent
   ],
     imports: [
         BrowserModule,
