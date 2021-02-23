@@ -1,6 +1,6 @@
-# DLL - Feuille de présence virtuelle
+# R&D - Feuille de présence virtuelle
 
-Reprise à 0 du projet de feuille de présence initialement repris en DLL suite aux différents manquements du rendu de l'année précédente. Mise en place d'une architecture MEAN propre avec module d'auth via token.
+Reprise à 0 du projet de feuille de présence initialement repris en DLL suite aux différents manquements du rendu de l'année précédente. Mise en place d'une architecture MEAN propre, avec module d'auth via token et fonction de signature digitale. Récupération de séances de VT-Agenda et génération d'une fiche de présence PDF client-side, qui peut être signée, archivée, et envoyée par mail server-side.
 
 ## Installation
 
@@ -12,9 +12,7 @@ Reprise à 0 du projet de feuille de présence initialement repris en DLL suite 
 
 **DB :** Créer une DB 'dll' sur MongoDB et y importer le contenu de client\src\assets\data
 
-Note - l'APP a accés aux routes de l'API grâce à son **proxy.conf.json**
-
-Exemple : localhost:4200/api/etudiants est une route viable pour HTTP dans le code de l'APP  
+Note - La DB est actuellement en ligne, installation localhost facultative, mais possible si besoin.
 
 ## Technologies
 
@@ -26,32 +24,29 @@ Architecture MEAN adaptée et fonctionelle pour une application RESTful.
 * Node JS (API backend)
 * [Doc Angular](https://angular.io/tutorial/toh-pt6) - Pour lier API/APP
 
-## Existant - APP
+## Dépendances
 
-**Module d'auth :** voir app/node_modules/nebular/auth - avec front et diverses stratégies
+Deux principaux packages : Node-signPDF et jsPDF (avec un plugin pour ce dernier : Autotable)
 
-**[Doc Nebular Auth](https://akveo.github.io/nebular/docs/auth/configuring-a-strategy#strategy) :** Documentation Nebular sur les stratégies et l'auth
-
-**Modules GMAO :** voir app/src/app/pages/tables - Nous n'utilisons que des components à base de tables
-
-## Existant - API
-
-**Modules GMAO :** voir api/src/modules - Les routes et controllers permettent un CRUD basique
-
-**DB :** voir api/data - Les collections des modules et quelques données (identiques aux Dummy Datas du front)
+* [Repo Node-sginPDF](https://github.com/vbuch/node-signpdf) - Signatures Digitales pour Node
+* [Repo jsPDF](https://github.com/MrRio/jsPDF) - Génération de fichier PDF
+* [Repo jsPDF-Autotable](https://github.com/simonbengtsson/jsPDF-AutoTable) - Création simplifiée de tableaux dans fichier
 
 ## TODO - Tâches immédiates
 
-1) Recuperer le contenu de VT Agenda
-	* Possible d'utiliser l'API réalisée par l'équipe d'Achraf
+1) Fix message d'alerte login (subscribe asynchrone = verification d'auth parfois triggered trop tôt)
+2) Gérer le cas ou l'enseignant oublie de signer la feuille  (feature de rappel)
+3) Gérer le cas ou l'enseignant est toujours connecté à une séance terminée
+4) Gérer le cas ou l'enseignant se reconnecte à une séance (en cours) dont l'appel a déjà été signé et terminé
+5) Modifier les informations rentrées en dur server-side (notamment constantes pour les mails)
+6) Contrôler la réussite ou non de la signature et de l'envoie mail selon upload du fichier (server-side)
 
-2) Modifier l'API pour traiter les données de VT Agenda
-	
-3) Mise en place de l'export des données en format PDF
+## TODO - Grandes lignes
 
-4) Mise en place de signature numérique et des QR-Codes
-
-
+1) Traiter toutes les séances de VT-Agenda
+2) Implémenter les véritables comptes enseignants (dummy datas en BD actuellement)
+3) Accéder à la liste des étudiants (dummy datas en BD actuellement)
+4) Intégrer le projet au sein d'une plateforme globale (projet d'un autre groupe)
 
 
 
