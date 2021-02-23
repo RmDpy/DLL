@@ -1,6 +1,6 @@
 <div class="prochaine-seance-body">
-    <form [formGroup] = "formGroup" (ngSubmit)="onSubmit()">
-    <input type="file" (change)="onFileChange($event)" />
-    <input type="submit" [disabled]="formGroup.invalid" value="SIGNER" />
+    <form [formGroup] = "formGroup" class="sign-form" (ngSubmit)="onSubmit()">
+        <input type="file" (change)="onFileChange($event)" />
+        <button type="submit" [disabled]="formGroup.invalid" class="action_sign"> <i class="fa fa-key" aria-hidden="true"></i> SIGNER</button>
     </form>
 </div>

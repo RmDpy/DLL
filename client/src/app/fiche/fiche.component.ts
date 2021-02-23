@@ -35,6 +35,7 @@ export class FicheComponent implements OnInit {
 
   alert: object;
   isAlertTriggered: boolean;
+  isDocGeneratedOnce : boolean;
 
   constructor(
     private utilisateurService: UtilisateurService,
@@ -56,6 +57,7 @@ export class FicheComponent implements OnInit {
     this.horaireActuel = "-";
     this.prochainHoraire = "-";
     this.formatedProchaineDate = "-";
+    this.isDocGeneratedOnce = false;
   }
 
   getSeances(): void {
@@ -183,7 +185,7 @@ export class FicheComponent implements OnInit {
     var lieu = this.seanceActuelle.location;
     var horaire = this.horaireActuel;
     this.pdf.generateFichePresence(presences, nombreAbsences, matiere, enseignant, dateJour, lieu, horaire);
-    this.listeSeance.slice(0,1);
+    this.isDocGeneratedOnce = true;
   }
 
   logOut(): void {

@@ -73,6 +73,7 @@ a:hover {
 .prochaine-seance-body{
   margin-top: 20px;
   padding: 8px;
+  text-align: center;
 }
 
 @media only screen and (min-width: 600px) {
@@ -269,7 +270,7 @@ li.psud a::before {
   color: #666666;
 }
 
-.the-form [type="submit"], button.action_validate, button.action_logout, button.action_login {
+.the-form [type="submit"], button.action_validate, button.action_logout, button.action_login, button.action_sign {
   background: #ffb37b;
   border: 1px solid rgba(0, 0, 0, 0.1);
   padding: 18px;
@@ -285,13 +286,24 @@ li.psud a::before {
 	transition: .3s ease-in-out;
 }
 
-button.action_validate:hover, .the-form [type="submit"]:hover, button.action_login:hover {
+button.action_validate:hover, .the-form [type="submit"]:hover, button.action_login:hover, button.action_sign:hover {
   background:#e48c4d;
   color: #ffffff;
 }
 
 button.action_logout {
   background: #c4b5b5d7;
+}
+
+button.action_sign{
+  background: #f0f0f0;
+  margin-top: 0px;
+  padding: 4px;
+  font-size: 20px;
+}
+
+button.action_sign:hover{
+  background: #96b495;
 }
 
 button.action_login {

@@ -35,7 +35,10 @@ export class FileUploaderComponent {
  }
 
  public onSubmit(): void {
-   this.fileService.upload(this.fileName, this.formGroup.get('file').value);
-   this.authenticationService.logout();
+  var answer = confirm ("Attention, cette action est définitive. Souhaitez-vous signer le document ?")
+  if (answer){
+    this.fileService.upload(this.fileName, this.formGroup.get('file').value);
+    this.authenticationService.logout();
+  }
  }
 }
