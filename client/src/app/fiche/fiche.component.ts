@@ -184,8 +184,16 @@ export class FicheComponent implements OnInit {
     var dateJour = this.formatedDateActuelle;
     var lieu = this.seanceActuelle.location;
     var horaire = this.horaireActuel;
-    this.pdf.generateFichePresence(presences, nombreAbsences, matiere, enseignant, dateJour, lieu, horaire);
-    this.isDocGeneratedOnce = true;
+
+    if(nombreAbsences === 29){
+      if (confirm ("Aucune case de la fiche n'est cochée. Souhaitez-vous continuer ?")){
+        this.pdf.generateFichePresence(presences, nombreAbsences, matiere, enseignant, dateJour, lieu, horaire);
+        this.isDocGeneratedOnce = true;
+      }
+    } else {
+      this.pdf.generateFichePresence(presences, nombreAbsences, matiere, enseignant, dateJour, lieu, horaire);
+      this.isDocGeneratedOnce = true;
+    }
   }
 
   logOut(): void {
