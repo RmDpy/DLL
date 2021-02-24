@@ -62,7 +62,9 @@
 			</div>
 		</form>
 	</div>
+	<!-- Affichage du component permettant de signer le document si l'utilisateur a généré la fiche au moins une fois -->
 	<app-file-uploader *ngIf="isDocGeneratedOnce"></app-file-uploader>
+	<!-- Affichage des informations générales sur la prochaine séance connue pour l'utilisateur courant -->
 	<div class="prochaine-seance-body">
 		<div class="table_container">
 			<table table class="info_table">

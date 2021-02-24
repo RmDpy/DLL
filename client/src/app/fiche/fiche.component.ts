@@ -93,7 +93,7 @@ export class FicheComponent implements OnInit {
       });
   }
 
-  getSeanceActuelle(prof: Enseignant, date: Date){
+  getSeanceActuelle(prof: Enseignant, date: Date){ //Parcourue une fois par séances, voir comment optimiser si trés grand nombres de séances
     if(this.listeSeance.length == 0){
       this.isAlertTriggered = true;
       this.alert = this.error.errorHandler(418, "AUCUNE SEANCE N'EXISTE POUR CET ENSEIGNANT");
@@ -102,14 +102,14 @@ export class FicheComponent implements OnInit {
         var dateDebActuelle = this.setDateDeb(se);
         var dateEndActuelle = this.setDateEnd(se);
         if(dateEndActuelle < date){
-          this.listeSeance.slice(0,1);
+          this.listeSeance.slice(0,1); //Rafraichir la liste de séances en retirant celles qui ne correspondent plus aux dates appropriées
         } else {
-            this.seanceProchaine = this.listeSeance[0]; //cette variable donne la séance prochaine
+            this.seanceProchaine = this.listeSeance[0];
             var prochaineDateDeb = this.setDateDeb(this.seanceProchaine);
             var prochaineDateEnd = this.setDateEnd(this.seanceProchaine);
             this.formatedProchaineDate = this.datepipe.transform(prochaineDateDeb, 'dd-MM-yyyy');
             this.prochainHoraire = this.setHoraire(prochaineDateDeb.getHours(), prochaineDateDeb.getMinutes()) + "-" + this.setHoraire(prochaineDateEnd.getHours(), prochaineDateEnd.getMinutes());
-          if(dateDebActuelle < date && date < dateEndActuelle) { //CETTE FONCTION EST CALL 48 FOIS EN 1 REQUETE Y A PEUT-ETRE MOYEN DE L'OPTIMISER UN PEU
+          if(dateDebActuelle < date && date < dateEndActuelle) {
             this.seanceActuelle = se;
             this.horaireActuel = this.setHoraire(dateDebActuelle.getHours(), dateDebActuelle.getMinutes()) + "-" + this.setHoraire(dateEndActuelle.getHours(), dateEndActuelle.getMinutes());
             this.getEtudiants();
@@ -128,10 +128,10 @@ export class FicheComponent implements OnInit {
     this.utilisateurService.getAllEtudiants()
       .subscribe((e: Etudiant[]) => {
         this.etudiantsList$ = e.sort(function(a,b) {
-          if (a.nom<b.nom){
+          if (a.nom < b.nom){
             return -1;
           }
-          if (a.nom>b.nom) {
+          if (a.nom > b.nom) {
             return 1;
           }
           return 0;
@@ -185,7 +185,7 @@ export class FicheComponent implements OnInit {
     var lieu = this.seanceActuelle.location;
     var horaire = this.horaireActuel;
 
-    if(nombreAbsences === 29){
+    if(nombreAbsences === 29){ //Ecrit en dur puisqu'une seule liste précise d'étudiants connus en dummy datas pour nos tests
       if (confirm ("Aucune case de la fiche n'est cochée. Souhaitez-vous continuer ?")){
         this.pdf.generateFichePresence(presences, nombreAbsences, matiere, enseignant, dateJour, lieu, horaire);
         this.isDocGeneratedOnce = true;

@@ -1,147 +1,29 @@
-[
-  {
-    "nom": "BOUBEKEUR",
-    "prenom": "Rabah",
-    "groupe": "m2miaa"
-  },
-  {
-    "nom": "BOUCAUD",
-    "prenom": "Jayson",
-    "groupe": "m2miaa"
-  },
-  {
-    "nom": "BOUDA",
-    "prenom": "Azzedine",
-    "groupe": "m2miaa"
-  },
-  {
-    "nom": "DE BRUYNE",
-    "prenom": "Alexis",
-    "groupe": "m2miaa"
-  },
-  {
-    "nom": "DESSEUX",
-    "prenom": "Valentin",
-    "groupe": "m2miaa"
-  },
-  {
-    "nom": "DIARRA",
-    "prenom": "Yannis",
-    "groupe": "m2miaa"
-  },
-  {
-    "nom": "DUPUY",
-    "prenom": "Remi",
-    "groupe": "m2miaa"
-  },
-  {
-    "nom": "FRUTEAU",
-    "prenom": "Alexandre",
-    "groupe": "m2miaa"
-  },
-  {
-    "nom": "JESIOLOWSKI",
-    "prenom": "Melvin",
-    "groupe": "m2miaa"
-  },
-  {
-    "nom": "KASSY",
-    "prenom": "Anis",
-    "groupe": "m2miaa"
-  },
-  {
-    "nom": "LECELLIER",
-    "prenom": "Laetitia",
-    "groupe": "m2miaa"
-  },
-  {
-    "nom": "MOUHAMAD",
-    "prenom": "Faizan",
-    "groupe": "m2miaa"
-  },
-  {
-    "nom": "NAIT SLIMANE",
-    "prenom": "Fares",
-    "groupe": "m2miaa"
-  },
-  {
-    "nom": "SATTIANARAYANANE",
-    "prenom": "Dhinesh",
-    "groupe": "m2miaa"
-  },
-  {
-    "nom": "SEFFER",
-    "prenom": "Loic",
-    "groupe": "m2miaa"
-  },
-  {
-    "nom": "SMAIL",
-    "prenom": "Massinissa",
-    "groupe": "m2miaa"
-  },
-  {
-    "nom": "VANDENSCHRICK",
-    "prenom": "David",
-    "groupe": "m2miaa"
-  },
-  {
-    "nom": "AMARA",
-    "prenom": "Samir",
-    "groupe": "m2miaa"
-  },
-  {
-    "nom": "DIEDHOU",
-    "prenom": "Ndeye Marieme",
-    "groupe": "m2miaa"
-  },
-  {
-    "nom": "FERREIRA",
-    "prenom": "Elodie",
-    "groupe": "m2miaa"
-  },
-  {
-    "nom": "LAHKIKY",
-    "prenom": "Achraf",
-    "groupe": "m2miaa"
-  },
-  {
-    "nom": "MEDDOURI",
-    "prenom": "Badis",
-    "groupe": "m2miaa"
-  },
-  {
-    "nom": "MOUTAOUKIL",
-    "prenom": "Soukayan",
-    "groupe": "m2miaa"
-  },
-  {
-    "nom": "TIMOR",
-    "prenom": "Brahim",
-    "groupe": "m2miaa"
-  },
-  {
-    "nom": "JAA",
-    "prenom": "Yassine",
-    "groupe": "m2miaa"
-  },
-  {
-    "nom": "LUNDI",
-    "prenom": "Marion",
-    "groupe": "m2miaa"
-  },
-  {
-    "nom": "LAIOLO",
-    "prenom": "Louis",
-    "groupe": "m2miaa"
-  },
-  {
-    "nom": "AIT MOHAMMED",
-    "prenom": "Malha",
-    "groupe": "m2miaa"
-  },
-  {
-    "nom": "HOURAGA",
-    "prenom": "Lauraine",
-    "groupe": "m2miaa"
-  }
-]
+{"_id":{"$oid":"5fb0f2cdc39d131db02c340b"},"nom":"DUPUY","prenom":"Remi","groupe":"m2miaa"}
+{"_id":{"$oid":"5fb0f2cdc39d131db02c340c"},"nom":"FRUTEAU","prenom":"Alexandre","groupe":"m2miaa"}
+{"_id":{"$oid":"5fb0f2cdc39d131db02c341a"},"nom":"MEDDOURI","prenom":"Badis","groupe":"m2miaa"}
+{"_id":{"$oid":"5fb0f2cdc39d131db02c341b"},"nom":"MOUTAOUKIL","prenom":"Soukayan","groupe":"m2miaa"}
+{"_id":{"$oid":"5fb0f2cdc39d131db02c340e"},"nom":"KASSY","prenom":"Anis","groupe":"m2miaa"}
+{"_id":{"$oid":"5fb0f2cdc39d131db02c3419"},"nom":"LAHKIKY","prenom":"Achraf","groupe":"m2miaa"}
+{"_id":{"$oid":"5fb0f2cdc39d131db02c3412"},"nom":"SATTIANARAYANANE","prenom":"Dhinesh","groupe":"m2miaa"}
+{"_id":{"$oid":"5fb0f2cdc39d131db02c3414"},"nom":"SMAIL","prenom":"Massinissa","groupe":"m2miaa"}
+{"_id":{"$oid":"5fb0f2cdc39d131db02c3417"},"nom":"DIEDHOU","prenom":"Ndeye Marieme","groupe":"m2miaa"}
+{"_id":{"$oid":"5fb0f2cdc39d131db02c3407"},"nom":"BOUDA","prenom":"Azzedine","groupe":"m2miaa"}
+{"_id":{"$oid":"5fb0f2cdc39d131db02c3408"},"nom":"DE BRUYNE","prenom":"Alexis","groupe":"m2miaa"}
+{"_id":{"$oid":"5fb0f2cdc39d131db02c3405"},"nom":"BOUBEKEUR","prenom":"Rabah","groupe":"m2miaa"}
+{"_id":{"$oid":"5fb0f2cdc39d131db02c3416"},"nom":"AMARA","prenom":"Samir","groupe":"m2miaa"}
+{"_id":{"$oid":"5fb0f2cdc39d131db02c341c"},"nom":"TIMOR","prenom":"Brahim","groupe":"m2miaa"}
+{"_id":{"$oid":"5fb0f2cdc39d131db02c3415"},"nom":"VANDENSCHRICK","prenom":"David","groupe":"m2miaa"}
+{"_id":{"$oid":"5fb0f2cdc39d131db02c3409"},"nom":"DESSEUX","prenom":"Valentin","groupe":"m2miaa"}
+{"_id":{"$oid":"5fb0f2cdc39d131db02c340d"},"nom":"JESIOLOWSKI","prenom":"Melvin","groupe":"m2miaa"}
+{"_id":{"$oid":"5fb0f2cdc39d131db02c340f"},"nom":"LECELLIER","prenom":"Laetitia","groupe":"m2miaa"}
+{"_id":{"$oid":"5fb0f2cdc39d131db02c341e"},"nom":"LUNDI","prenom":"Marion","groupe":"m2miaa"}
+{"_id":{"$oid":"5fb0f2cdc39d131db02c3420"},"nom":"AIT MOHAMMED","prenom":"Malha","groupe":"m2miaa"}
+{"_id":{"$oid":"5fb0f2cdc39d131db02c3413"},"nom":"SEFFER","prenom":"Loic","groupe":"m2miaa"}
+{"_id":{"$oid":"5fb0f2cdc39d131db02c341d"},"nom":"JAA","prenom":"Yassine","groupe":"m2miaa"}
+{"_id":{"$oid":"5fb0f2cdc39d131db02c341f"},"nom":"LAIOLO","prenom":"Louis","groupe":"m2miaa"}
+{"_id":{"$oid":"5fb0f2cdc39d131db02c3418"},"nom":"FERREIRA","prenom":"Elodie","groupe":"m2miaa"}
+{"_id":{"$oid":"5fb0f2cdc39d131db02c3421"},"nom":"HOURAGA","prenom":"Lauraine","groupe":"m2miaa"}
+{"_id":{"$oid":"5fb0f2cdc39d131db02c3411"},"nom":"NAIT SLIMANE","prenom":"Fares","groupe":"m2miaa"}
+{"_id":{"$oid":"5fb0f2cdc39d131db02c340a"},"nom":"DIARRA","prenom":"Yannis","groupe":"m2miaa"}
+{"_id":{"$oid":"5fb0f2cdc39d131db02c3406"},"nom":"BOUCAUD","prenom":"Jayson","groupe":"m2miaa"}
+{"_id":{"$oid":"5fb0f2cdc39d131db02c3410"},"nom":"MOUHAMAD","prenom":"Faizan","groupe":"m2miaa"}
