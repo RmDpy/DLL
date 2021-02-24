@@ -1,10 +1,10 @@
 # R&D - Feuille de présence virtuelle
 
-Reprise à 0 du projet de feuille de présence initialement repris en DLL suite aux différents manquements du rendu de l'année précédente. Mise en place d'une architecture MEAN propre, avec module d'auth via token et fonction de signature digitale. Récupération de séances de VT-Agenda et génération d'une fiche de présence PDF client-side, qui peut être signée, archivée, et envoyée par mail server-side.
+Reprise à 0 du projet de feuille de présence initialement repris en DLL suite aux différents manquements du rendu de l'année précédente. Mise en place d'une architecture MEAN propre et responsive, avec module d'auth via token et fonction de signature digitale. Récupération de séances de VT-Agenda et génération d'une fiche de présence PDF client-side, qui peut être signée, archivée, et envoyée par mail server-side sur décision de l'enseignant.
 
 ## Installation
 
-Seule la version du projet située sur la branche "dev" est à prendre en considération.
+Attention, seule la version du projet située sur la branche **DEV** est à prendre en considération.
 
 **Client :** Executer ``npm install`` puis ``npm start``
 	* Résultat sur localhost:4200 (Tout navigateur)
@@ -14,7 +14,7 @@ Seule la version du projet située sur la branche "dev" est à prendre en consid
 
 **DB :** Créer une DB 'dll' sur MongoDB et y importer le contenu de client\src\assets\data
 
-Note - La DB est actuellement en ligne, installation localhost facultative, mais possible si besoin.
+Note - La DB est actuellement en ligne, installation localhost facultative, mais possible si besoin. Changer lien DB server-side.
 
 ## Technologies
 
@@ -24,7 +24,6 @@ Architecture MEAN adaptée et fonctionelle pour une application RESTful.
 * Express (Server-side)
 * Angular (IHM client)
 * Node JS (API backend)
-* [Doc Angular](https://angular.io/tutorial/toh-pt6) - Pour lier API/APP
 
 ## Dépendances
 
@@ -49,6 +48,9 @@ Deux principaux packages : Node-signPDF et jsPDF (avec un plugin pour ce dernier
 2) Implémenter les véritables comptes enseignants (dummy datas en BD actuellement)
 3) Accéder à la liste des étudiants (dummy datas en BD actuellement)
 4) Intégrer le projet au sein d'une plateforme globale (projet d'un autre groupe)
+5) Appli responsive via CSS, pourrait bénéficier d'une refonte sur Bootstrap
+6) Mettre en place une gestion des rôles
+7) Mettre en place un meilleur systeme d'archive/upload (actuellement les docs sont stockés dans un rep server-side)
 
 
 
