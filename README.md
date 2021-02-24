@@ -14,7 +14,7 @@ Attention, seule la version du projet située sur la branche **DEV** est à pren
 
 **DB :** Créer une DB 'dll' sur MongoDB et y importer le contenu de client\src\assets\data
 
-Note - La DB est actuellement en ligne, installation localhost facultative, mais possible si besoin. Changer lien DB server-side.
+Note - La DB est actuellement en ligne, installation localhost facultative. Changer lien DB server-side.
 
 ## Technologies
 
