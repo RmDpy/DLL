@@ -44,7 +44,7 @@ Deux principaux packages : Node-signPDF et jsPDF (avec un plugin pour ce dernier
 
 ## TODO - Grandes lignes
 
-1) Traiter toutes les séances de VT-Agenda
+1) Traiter toutes les séances de VT-Agenda (Actuellement seules celles de M2 MIAGE APP)
 2) Implémenter les véritables comptes enseignants (dummy datas en BD actuellement)
 3) Accéder à la liste des étudiants (dummy datas en BD actuellement)
 4) Intégrer le projet au sein d'une plateforme globale (projet d'un autre groupe)
