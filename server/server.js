@@ -6,7 +6,13 @@ const DB_PATH = 'mongodb+srv://admin_bdd:admin_bdd@cluster0.aqzty.mongodb.net/dl
 
 const signer = require('node-signpdf').default;
 const fs = require("fs");
+const mkdirp = require('mkdirp');
 const userFiles = './assets/user_upload/';
+
+var getUploadsDir = require('path').dirname;
+var getCertifsDir = require('path').dirname;
+var getSignDocDir = require('path').dirname;
+
 const dummyCertificateP12 = './assets/certificate/certificate.p12'; //Certificat nécéssaire pour le processus de signature
 const helpers = require('node-signpdf/dist/helpers'); //Pour pouvoir utiliser les fonctions helpers de nodesign-pdf (voir README de leur repo)
 
