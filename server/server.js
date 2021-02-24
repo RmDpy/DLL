@@ -6,13 +6,9 @@ const DB_PATH = 'mongodb+srv://admin_bdd:admin_bdd@cluster0.aqzty.mongodb.net/dl
 
 const signer = require('node-signpdf').default;
 const fs = require("fs");
-const mkdirp = require('mkdirp');
+
 const userFiles = './assets/user_upload/';
-
-var getUploadsDir = require('path').dirname;
-var getCertifsDir = require('path').dirname;
-var getSignDocDir = require('path').dirname;
-
+const signedFiles = './assets/signed_upload/';
 const dummyCertificateP12 = './assets/certificate/certificate.p12'; //Certificat nécéssaire pour le processus de signature
 const helpers = require('node-signpdf/dist/helpers'); //Pour pouvoir utiliser les fonctions helpers de nodesign-pdf (voir README de leur repo)
 
@@ -156,7 +152,7 @@ function digitallySignDocument (fileName) { //Voir tests unitaires sur le repo n
     pdfBuffer = helpers.plainAddPlaceholder ( { pdfBuffer, reason: 'Presences confirmées', signatureLength: 1612, author: "Laiolo", Date: "23/02/2021" } )
     pdfBuffer = signer.sign ( pdfBuffer, p12Buffer ) //possible de rajouter ,{ passphrase } juste apres p12Buffer si certificat a un MDP
     //const {signature, signeData} = helpers.extractSignature(pdfBuffer); uniquement pour verifier le contenant de la signature via console.log() si besoin
-    fs.writeFileSync (`./assets/signed_upload/` + fileName, pdfBuffer) //Création de notre document signé
+    fs.writeFileSync (signedFiles + fileName, pdfBuffer) //Création de notre document signé
   }
 
 function sendDocumentByMail(fileName){
@@ -164,7 +160,7 @@ function sendDocumentByMail(fileName){
         from: dummySender,
         to: dummyReceiver,
         subject: '[FICHE] ' + fileName,
-        attachments: [{ filename: fileName, path: './assets/signed_upload/' + fileName }],
+        attachments: [{ filename: fileName, path: signedFiles + fileName }],
         text: 'Projet R&D - M2 MIAGE APP - 2021'
     };
     transporter.sendMail(mailOptions, function(error, info){
