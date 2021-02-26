@@ -29,7 +29,7 @@ Architecture MEAN adaptée et fonctionelle pour une application RESTful.
 
 Deux principaux packages : Node-signPDF et jsPDF (avec un plugin pour ce dernier : Autotable)
 
-* [Repo Node-sginPDF](https://github.com/vbuch/node-signpdf) - Signatures Digitales pour Node
+* [Repo Node-signPDF](https://github.com/vbuch/node-signpdf) - Signatures Digitales pour Node
 * [Repo jsPDF](https://github.com/MrRio/jsPDF) - Génération de fichier PDF
 * [Repo jsPDF-Autotable](https://github.com/simonbengtsson/jsPDF-AutoTable) - Création simplifiée de tableaux dans fichier
 
@@ -41,6 +41,7 @@ Deux principaux packages : Node-signPDF et jsPDF (avec un plugin pour ce dernier
 4) Gérer le cas ou l'enseignant se reconnecte à une séance (en cours) dont l'appel a déjà été signé et terminé
 5) Modifier les informations rentrées en dur server-side (notamment constantes pour les mails)
 6) Contrôler la réussite ou non de la signature et de l'envoie mail selon upload du fichier (server-side)
+7) Ajouter un timestamp ou un QR-Code pour illustrer la signature digitale (actuellement non visible sur la page)
 
 ## TODO - Grandes lignes
 
