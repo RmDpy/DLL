@@ -7,10 +7,10 @@ Reprise à 0 du projet de feuille de présence initialement repris en DLL suite 
 Attention, seule la version du projet située sur la branche **DEV** est à prendre en considération.
 
 **Client :** Executer ``npm install`` puis ``npm start``
-	* Résultat sur localhost:4200 (Tout navigateur)
+	*Résultat sur localhost:4200 (Tout navigateur)
 
 **Server :** Executer ``npm install`` puis ``npm start``
-	* Résultat sur localhost:3000 (Tout navigateur)
+	*Résultat sur localhost:3000 (Tout navigateur)
 
 **DB :** Créer une DB 'dll' sur MongoDB et y importer le contenu de client\src\assets\data
 
@@ -29,7 +29,7 @@ Architecture MEAN adaptée et fonctionelle pour une application RESTful.
 
 Deux principaux packages : Node-signPDF et jsPDF (avec un plugin pour ce dernier : Autotable)
 
-* [Repo Node-sginPDF](https://github.com/vbuch/node-signpdf) - Signatures Digitales pour Node
+* [Repo Node-signPDF](https://github.com/vbuch/node-signpdf) - Signatures Digitales pour Node
 * [Repo jsPDF](https://github.com/MrRio/jsPDF) - Génération de fichier PDF
 * [Repo jsPDF-Autotable](https://github.com/simonbengtsson/jsPDF-AutoTable) - Création simplifiée de tableaux dans fichier
 
@@ -41,6 +41,7 @@ Deux principaux packages : Node-signPDF et jsPDF (avec un plugin pour ce dernier
 4) Gérer le cas ou l'enseignant se reconnecte à une séance (en cours) dont l'appel a déjà été signé et terminé
 5) Modifier les informations rentrées en dur server-side (notamment constantes pour les mails)
 6) Contrôler la réussite ou non de la signature et de l'envoie mail selon upload du fichier (server-side)
+7) Ajouter un timestamp ou un QR-Code pour illustrer la signature digitale (actuellement non visible sur la page)
 
 ## TODO - Grandes lignes
 
@@ -51,8 +52,3 @@ Deux principaux packages : Node-signPDF et jsPDF (avec un plugin pour ce dernier
 5) Appli responsive via CSS, pourrait bénéficier d'une refonte sur Bootstrap
 6) Mettre en place une gestion des rôles
 7) Mettre en place un meilleur systeme d'archive/upload (actuellement les docs sont stockés dans un rep server-side)
-
-
-
-
-
